@@ -16,4 +16,9 @@ public class Presentation {
 
     @Lob
     String longDescription;
+
+    public Presentation(String shortDescription, String longDescription) {
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+    }
 }
