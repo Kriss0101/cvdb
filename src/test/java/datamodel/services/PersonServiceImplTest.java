@@ -31,10 +31,13 @@ public class PersonServiceImplTest {
 
     @Before
     public void setUp() throws Exception {
+        // Given
         MockitoAnnotations.initMocks(this);
 
+        // When
         service = new PersonServiceImpl(repository);
 
+        // Then
         persons = getMockedPersonCollection();
 
     }
