@@ -1,10 +1,10 @@
 package datamodel;
 
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import javax.persistence.*;
-
-@Data
 @Entity
 public class Skill {
 
@@ -12,11 +12,6 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Lob
-    String description;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    SkillLevel level;
+    String name;
 
 }

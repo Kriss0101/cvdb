@@ -1,13 +1,6 @@
 package datamodel;
 
-import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-public enum SkillLevel {
+public enum Grade {
 
     NONE("No experience","No experience at all"),
     BEGINNER("Beginner","Have some theoretical knowledge but no or little practical experience"),
@@ -18,7 +11,7 @@ public enum SkillLevel {
     private final String description;
     private final String name;
 
-    SkillLevel(String name, String description) {
+    Grade(String name, String description) {
         this.description = description;
         this.name = name;
     }

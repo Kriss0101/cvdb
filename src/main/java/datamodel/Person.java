@@ -1,11 +1,15 @@
 package datamodel;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
 public class Person {
 
     @Id
@@ -20,4 +24,6 @@ public class Person {
 
     @OneToOne(fetch = FetchType.EAGER)
     Presentation presentation;
+
+
 }
