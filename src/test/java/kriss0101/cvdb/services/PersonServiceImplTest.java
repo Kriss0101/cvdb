@@ -1,5 +1,6 @@
 package kriss0101.cvdb.services;
 
+import kriss0101.cvdb.datamodel.Contact;
 import kriss0101.cvdb.datamodel.Person;
 import kriss0101.cvdb.datamodel.Presentation;
 import kriss0101.cvdb.repositories.PersonRepository;
@@ -42,16 +43,15 @@ public class PersonServiceImplTest {
     }
 
     private List<Person> getMockedPersonCollection() {
-        Person p1 = Person.builder().firstName("Pelle").lastName("Persson").id(1L)
-                .presentation(new Presentation("Skilled developer", "I am very proficient in OO design and programming.")
-                ).build();
-            ;
-    Person p2 = Person.builder().firstName("Kalle").lastName("Karlsson").id(2L)
-            .presentation(new Presentation("Junior developer", "I am a beginner but very smart.")
-            ).build();
-    Person p3 = Person.builder().firstName("Lisa").lastName("Larsson").id(3L)
-            .presentation(new Presentation("Highly focused developer", "I am very focused.")
-            ).build();
+        Person p1 = new Person(1L,"Pelle","Persson",
+                new Contact(null,"vägen 2","pelle@gmail.com","234234"),
+                new Presentation("Skilled developer", "I am very proficient in OO design and programming."));
+        Person p2 = new Person(2L,"Kalle","Karlsson",
+                new Contact(null,"vägen 2","kalle@gmail.com","234234"),
+                new Presentation("Very Skilled developer", "I am very proficient in OO design and programming."));
+        Person p3 = new Person(3L,"Jonas","Persson",
+                new Contact(null,"vägen 2","jonas@gmail.com","234234"),
+                new Presentation("NOt so skilled developer", "I am very proficient in OO design and programming."));               ;
 
     return Arrays.asList(p1,p2,p3);
 };

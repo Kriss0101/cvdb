@@ -17,10 +17,7 @@ public class Bootstrap implements CommandLineRunner {
 
     private void storeDummyData() {
 
-        Person p = new Person();
 
-
-        repo.save(p);
 
 
     }

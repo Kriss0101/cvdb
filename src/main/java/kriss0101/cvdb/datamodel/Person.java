@@ -7,25 +7,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
+
+
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String firstName;
-    String lastName;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    Contact contact;
+    private String firstName;
+    private String lastName;
 
     @OneToOne(fetch = FetchType.EAGER)
-    Presentation presentation;
+    private Contact contact;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Presentation presentation;
+
 
 
 }

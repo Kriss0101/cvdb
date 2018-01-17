@@ -4,6 +4,8 @@ import kriss0101.cvdb.commands.ContactDTO;
 import kriss0101.cvdb.commands.PersonDTO;
 import kriss0101.cvdb.datamodel.Contact;
 import kriss0101.cvdb.datamodel.Person;
+import kriss0101.cvdb.datamodel.Presentation;
+import org.h2.compress.CompressNo;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -55,12 +57,18 @@ public class PersonToPersonDTOMapperTest {
 
     @Test
     public void testConvertPersonToPersonDTO() {
-        Person p1 = Person.builder().firstName("Kris").lastName("Krisson")
-                .contact(
-                        Contact.builder().adress("vägen 3").email("kris@gmail.com").id(1L).phone("9999").build()
-                ).build();
+        Contact contactDTO = new Contact(null,"vägen 3","kris@gmail.com", "9999");
+        Presentation pres = new Presentation("good developer","very good developer");
+        Person p1 = new Person(null,"Kris","Krisson",contactDTO, pres);
 
         PersonToPersonDTOMapper mapper = Mappers.getMapper(PersonToPersonDTOMapper.class);
-        PersonDTO pDTO= mapper.
+        PersonDTO pDTO= mapper.personToPersonDTO(p1);
+
+        assertThat(pDTO.getFirstName()).isEqualTo(p1.getFirstName());
+        assertThat(pDTO.getLastName()).isEqualTo(p1.getLastName());
+        assertThat(pDTO.getContactDTO()).isEqualTo(contactDTO);
+
+        assertThat(pDTO.getPresentationDTO().getLongDescription()).isEqualTo(p1.getPresentation().getLongDescription());
+
     }
 }

@@ -10,13 +10,13 @@ public class SkillGrade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Lob
-    Skill skill;
+    private Skill skill;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    Grade grade;
+    private Grade grade;
 
 }

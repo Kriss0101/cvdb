@@ -1,8 +1,11 @@
 package kriss0101.cvdb.commands;
 
+import lombok.Data;
+
+@Data
 public class PresentationDTO {
 
-    String shortDescription;
-    String longDescription;
+    private String shortDescription;
+    private String longDescription;
 
 }

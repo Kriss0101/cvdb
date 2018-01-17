@@ -10,12 +10,12 @@ public class Presentation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String shortDescription;
+    private String shortDescription;
 
     @Lob
-    String longDescription;
+    private String longDescription;
 
     public Presentation(String shortDescription, String longDescription) {
         this.shortDescription = shortDescription;

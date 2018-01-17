@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class PersonDTO {
 
-    String firstName;
-    String lastName;
+    private String firstName;
+    private String lastName;
 
-    ContactDTO contactDTO;
-    PresentationDTO presentationDTO;
+    private ContactDTO contactDTO;
+    private PresentationDTO presentationDTO;
 
 
 
