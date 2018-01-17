@@ -1,15 +1,14 @@
-package datamodel.services;
+package kriss0101.cvdb.services;
 
-import datamodel.Person;
-import datamodel.Presentation;
-import datamodel.repositories.PersonRepository;
+import kriss0101.cvdb.datamodel.Person;
+import kriss0101.cvdb.datamodel.Presentation;
+import kriss0101.cvdb.repositories.PersonRepository;
 import org.junit.Before;
 
 import org.junit.Test;
 import org.mockito.Mock;
 
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Arrays;
 import java.util.List;

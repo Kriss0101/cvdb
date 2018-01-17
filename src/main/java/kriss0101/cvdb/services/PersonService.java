@@ -1,6 +1,6 @@
-package datamodel.services;
+package kriss0101.cvdb.services;
 
-import datamodel.Person;
+import kriss0101.cvdb.datamodel.Person;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package datamodel.services;
+package kriss0101.cvdb.services;
 
-import datamodel.Person;
-import datamodel.repositories.PersonRepository;
+import kriss0101.cvdb.datamodel.Person;
+import kriss0101.cvdb.repositories.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;

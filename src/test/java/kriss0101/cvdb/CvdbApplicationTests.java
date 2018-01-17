@@ -1,4 +1,4 @@
-package kriss0101.cvdb.cvdb;
+package kriss0101.cvdb;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

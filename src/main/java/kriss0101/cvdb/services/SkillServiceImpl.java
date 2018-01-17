@@ -1,7 +1,7 @@
-package datamodel.services;
+package kriss0101.cvdb.services;
 
-import datamodel.Skill;
-import datamodel.repositories.SkillRepository;
+import kriss0101.cvdb.datamodel.Skill;
+import kriss0101.cvdb.repositories.SkillRepository;
 
 import java.util.ArrayList;
 import java.util.List;

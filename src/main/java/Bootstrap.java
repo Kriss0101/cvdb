@@ -1,8 +1,7 @@
-import datamodel.Person;
-import datamodel.repositories.PersonRepository;
+import kriss0101.cvdb.datamodel.Person;
+import kriss0101.cvdb.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import sun.tools.jar.CommandLine;
 
 public class Bootstrap implements CommandLineRunner {
 

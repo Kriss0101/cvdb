@@ -1,4 +1,4 @@
-package datamodel;
+package kriss0101.cvdb.datamodel;
 
 public enum Grade {
 

@@ -1,4 +1,4 @@
-package datamodel;
+package kriss0101.cvdb.datamodel;
 
 import lombok.Data;
 
@@ -6,18 +6,17 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Assignment {
+public class Education {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String shortDescription;
-
     @Lob
-    String longDescription;
+    String description;
+
     Integer fromYear;
     Integer toYear;
-    String employer;
+
 
 }
