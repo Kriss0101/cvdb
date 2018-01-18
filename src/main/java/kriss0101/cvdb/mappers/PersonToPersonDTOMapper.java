@@ -1,22 +1,50 @@
 package kriss0101.cvdb.mappers;
 
-import kriss0101.cvdb.commands.ContactDTO;
 import kriss0101.cvdb.commands.PersonDTO;
-import kriss0101.cvdb.datamodel.Contact;
 import kriss0101.cvdb.datamodel.Person;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
-public interface PersonToPersonDTOMapper {
+public class PersonToPersonDTOMapper {
 
-    PersonToPersonDTOMapper INSTANCE = Mappers.getMapper(PersonToPersonDTOMapper.class);
+    public static PersonDTO personToPersonDTO(Person person) {
+        if ( person == null ) {
+            return null;
+        }
 
-    ContactDTO contactToContactDTO(Contact contact);
-    Contact contactDTOToContact(ContactDTO contactDTO);
+        PersonDTO personDTO = new PersonDTO();
 
-    PersonDTO personToPersonDTO(Person person);
-    Person personDTOToPerson(PersonDTO dto);
+        personDTO.setFirstName( person.getFirstName() );
+        personDTO.setLastName( person.getLastName() );
 
+        personDTO.setContactDTO(
+                ContactToContactDTOMapper.contactToContactDTO(person.getContact()));
+
+        personDTO.setPresentationDTO(
+                PresentationToPresentationDTOMapper.presentationToPresentationDTO(person.getPresentation())
+        );
+
+
+        return personDTO;
+    }
+
+
+    public static Person personDTOToPerson(PersonDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        Person person = new Person();
+
+        person.setFirstName( dto.getFirstName() );
+        person.setLastName( dto.getLastName() );
+
+        person.setContact(ContactToContactDTOMapper.contactDTOToContact(dto.getContactDTO()));
+
+        person.setPresentation(
+                PresentationToPresentationDTOMapper.presentationDTOToPresentation(
+                        dto.getPresentationDTO()
+                )
+        );
+
+        return person;
+    }
 }

@@ -25,8 +25,7 @@ public class PersonToPersonDTOMapperTest {
             c.setPhone("999");
 
         // When
-        PersonToPersonDTOMapper mapper = PersonToPersonDTOMapper.INSTANCE;
-        ContactDTO dto = mapper.contactToContactDTO(c);
+        ContactDTO dto = ContactToContactDTOMapper.contactToContactDTO(c);
 
         // Then
         assertThat(dto.getAdress()).isEqualTo(c.getAdress());
@@ -47,8 +46,7 @@ public class PersonToPersonDTOMapperTest {
         dto.setPhone("999");
 
         // When
-        PersonToPersonDTOMapper mapper = Mappers.getMapper(PersonToPersonDTOMapper.class);
-        Contact c  = mapper.contactDTOToContact(dto);
+        Contact c  = ContactToContactDTOMapper.contactDTOToContact(dto);
 
         // Then
         assertThat(c.getAdress()).isEqualTo(dto.getAdress());
@@ -58,13 +56,16 @@ public class PersonToPersonDTOMapperTest {
 
     @Test
     public void testConvertPersonToPersonDTO() {
-        Contact contactDTO = new Contact(null,"vägen 3","kris@gmail.com", "9999");
+        // Given
+        Contact contact = new Contact(null,"vägen 3","kris@gmail.com", "9999");
         Presentation pres = new Presentation("good developer","very good developer");
-        Person p1 = new Person(null,"Kris","Krisson",contactDTO, pres);
+        Person p1 = new Person(null,"Kris","Krisson",contact, pres);
+        ContactDTO contactDTO = ContactToContactDTOMapper.contactToContactDTO(contact);
 
-        PersonToPersonDTOMapper mapper = PersonToPersonDTOMapper.INSTANCE;
-        PersonDTO pDTO= mapper.personToPersonDTO(p1);
+        // When
+        PersonDTO pDTO= PersonToPersonDTOMapper.personToPersonDTO(p1);
 
+        // Then
         assertThat(pDTO.getFirstName()).isEqualTo(p1.getFirstName());
         assertThat(pDTO.getLastName()).isEqualTo(p1.getLastName());
         assertThat(pDTO.getContactDTO()).isEqualTo(contactDTO);
@@ -74,15 +75,17 @@ public class PersonToPersonDTOMapperTest {
     }
     @Test
     public void testConversionOfNestedDTOs() {
-        Contact contactDTO = new Contact(null,"vägen 3","kris@gmail.com", "9999");
+        // Given
+        Contact contact = new Contact(null,"vägen 3","kris@gmail.com", "9999");
         Presentation pres = new Presentation("good developer","very good developer");
-        Person p1 = new Person(null,"Kris","Krisson",contactDTO, pres);
+        Person p1 = new Person(null,"Kris","Krisson",contact, pres);
+        PersonDTO pDTO= PersonToPersonDTOMapper.personToPersonDTO(p1);
+        ContactDTO contactDTO = ContactToContactDTOMapper.contactToContactDTO(contact);
 
-        PersonToPersonDTOMapper mapper = PersonToPersonDTOMapper.INSTANCE;
-        PersonDTO pDTO= mapper.personToPersonDTO(p1);
-
+        // When
         assertThat(pDTO.getPresentationDTO().getLongDescription()).isEqualTo(p1.getPresentation().getLongDescription());
 
+        // Then
         assertThat(pDTO.getContactDTO()).isEqualTo(contactDTO);
 
 
