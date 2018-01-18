@@ -2,11 +2,13 @@ package kriss0101.cvdb.services;
 
 import kriss0101.cvdb.datamodel.Skill;
 import kriss0101.cvdb.repositories.SkillRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SkillServiceImpl implements SkillService {
 
     private final SkillRepository repository;

@@ -9,4 +9,8 @@ public interface PersonService {
 
         List<Person> getPersons();
         Optional<Person> getById(Long id);
+
+        Person createPerson(Person person);
+        Person updatePerson(Person person);
+        void deletePerson(Long id);
 }

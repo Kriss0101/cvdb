@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,10 @@ import java.util.Optional;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class PersonServiceImplTest {
@@ -31,13 +36,13 @@ public class PersonServiceImplTest {
 
     @Before
     public void setUp() throws Exception {
-        // Given
+
         MockitoAnnotations.initMocks(this);
 
-        // When
+
         service = new PersonServiceImpl(repository);
 
-        // Then
+
         persons = getMockedPersonCollection();
 
     }
@@ -74,5 +79,52 @@ public class PersonServiceImplTest {
         Optional<Person> found = service.getById(999L);
 
         assertThat(found.get()).isEqualTo(p1);
+    }
+
+
+
+    @Test
+    public void createPerson() {
+        // Given
+        Person p = persons.get(0);
+        when(repository.save(any(Person.class))).thenReturn(p);
+
+        // When
+        Person pret = service.createPerson(p);
+
+        // Then
+        assertThat(pret).isEqualTo(p);
+        verify(repository, times(1)).save(p);
+    }
+
+    @Test
+    public void updatePerson() {
+        // Given
+        Person p = persons.get(0);
+        when(repository.save(any(Person.class))).then((Answer<Person>) invocation -> {
+                    Person person = invocation.getArgument(0);
+                    person.setId(10L);
+                    return person;
+                });
+
+        // When
+        Person pret = service.updatePerson(p);
+
+        // Then
+        assertThat(pret).isEqualTo(p);
+        assertThat(pret.getId()).isEqualTo(10L);
+        verify(repository, times(1)).save(p);
+    }
+
+    @Test
+    public void deletePerson() {
+        // Given
+        Person p = persons.get(0);
+
+        // When
+        service.deletePerson(1L);
+
+        // Then
+        verify(repository, times(1)).deleteById(1L);
     }
 }
