@@ -37,7 +37,7 @@ public class SkillServiceImplTest {
         Skill s = new Skill();
         s.setName("Java");
         s.setId(1L);
-        when(repo.findOne(anyLong())).thenReturn(s);
+        when(repo.findById(anyLong())).thenReturn(Optional.of(s));
 
         Optional<Skill> sFound = service.getSkillById(1L);
 

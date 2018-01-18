@@ -9,6 +9,7 @@ import org.h2.compress.CompressNo;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -24,7 +25,7 @@ public class PersonToPersonDTOMapperTest {
             c.setPhone("999");
 
         // When
-        PersonToPersonDTOMapper mapper = Mappers.getMapper(PersonToPersonDTOMapper.class);
+        PersonToPersonDTOMapper mapper = PersonToPersonDTOMapper.INSTANCE;
         ContactDTO dto = mapper.contactToContactDTO(c);
 
         // Then
@@ -61,7 +62,7 @@ public class PersonToPersonDTOMapperTest {
         Presentation pres = new Presentation("good developer","very good developer");
         Person p1 = new Person(null,"Kris","Krisson",contactDTO, pres);
 
-        PersonToPersonDTOMapper mapper = Mappers.getMapper(PersonToPersonDTOMapper.class);
+        PersonToPersonDTOMapper mapper = PersonToPersonDTOMapper.INSTANCE;
         PersonDTO pDTO= mapper.personToPersonDTO(p1);
 
         assertThat(pDTO.getFirstName()).isEqualTo(p1.getFirstName());
@@ -69,6 +70,21 @@ public class PersonToPersonDTOMapperTest {
         assertThat(pDTO.getContactDTO()).isEqualTo(contactDTO);
 
         assertThat(pDTO.getPresentationDTO().getLongDescription()).isEqualTo(p1.getPresentation().getLongDescription());
+
+    }
+    @Test
+    public void testConversionOfNestedDTOs() {
+        Contact contactDTO = new Contact(null,"vägen 3","kris@gmail.com", "9999");
+        Presentation pres = new Presentation("good developer","very good developer");
+        Person p1 = new Person(null,"Kris","Krisson",contactDTO, pres);
+
+        PersonToPersonDTOMapper mapper = PersonToPersonDTOMapper.INSTANCE;
+        PersonDTO pDTO= mapper.personToPersonDTO(p1);
+
+        assertThat(pDTO.getPresentationDTO().getLongDescription()).isEqualTo(p1.getPresentation().getLongDescription());
+
+        assertThat(pDTO.getContactDTO()).isEqualTo(contactDTO);
+
 
     }
 }

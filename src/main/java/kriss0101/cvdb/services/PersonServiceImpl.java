@@ -25,6 +25,6 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Optional<Person> getById(Long id) {
-        return Optional.of(repo.findOne(id));
+        return repo.findById(id);
     }
 }

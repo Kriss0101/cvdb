@@ -24,6 +24,6 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Optional<Skill> getSkillById(Long id) {
-        return Optional.of(repository.findOne(id));
+        return repository.findById(id);
     }
 }

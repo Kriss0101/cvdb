@@ -17,7 +17,7 @@ import java.util.Optional;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 public class PersonServiceImplTest {
@@ -69,7 +69,7 @@ public class PersonServiceImplTest {
     @Test
     public void testGetById() {
         Person p1 = persons.get(0);
-        when(repository.findOne(anyLong())).thenReturn(p1);
+        when(repository.findById(anyLong())).thenReturn(Optional.of(p1));
 
         Optional<Person> found = service.getById(999L);
 
