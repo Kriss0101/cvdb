@@ -15,7 +15,6 @@ public class SkillGrade {
     @Lob
     private Skill skill;
 
-    @OneToMany(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Grade grade;
 

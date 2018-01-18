@@ -1,5 +1,6 @@
 package kriss0101.cvdb.datamodel;
 
+
 public enum Grade {
 
     NONE("No experience","No experience at all"),
