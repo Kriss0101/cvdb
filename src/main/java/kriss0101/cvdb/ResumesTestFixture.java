@@ -29,7 +29,7 @@ public class ResumesTestFixture {
     }
     private  void storeResumesPerson1() {
         // Pelle
-        Person pelle = Person.builder().firstName("Pelle").lastName("Persson").contact(Contact.builder().phone("999").build()).build();
+        Person pelle = Person.builder().firstName("Pelle").lastName("Persson").contact(Contact.builder().adress("vägen 1").email("asdf@asdf").phone("999").build()).build();
         personRepository.save(pelle);
         List<Education> pellesEducations = Arrays.asList(
                 Education.builder().fromYear(1990).toYear(1999).description("javakurs").build(),

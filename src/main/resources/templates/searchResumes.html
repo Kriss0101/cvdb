@@ -18,37 +18,70 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     -->
 
+    <style>
+<!-- Thanks for styling of search form: https://www.htmlgoodies.com/tutorials/forms/article.php/3888746/HTML-Forms-From-Basics-to-Style-Layouts.htm -->
+        fieldset {
+            width: 500px;
+        }
+
+        legend {
+            font-size: 20px;
+        }
+        label.field {
+            text-align: right;
+            width: 100px;
+            float: left;
+            font-weight: bold;
+        }
+        input.textbox-300 {
+            width: 300px;
+            float: left;
+        }
+        fieldset p {
+            clear: both;
+            padding: 5px;
+        }
+        .submitbutton {
+            float: right;
+        }
+
+
+
+    </style>
 </head>
 <body>
 
 
 <div name=MAIN_CONTAINER class="container h-100">
     <!--<div class="col-md-8 col-md-offset-2">-->
-    <div class="col-md-6 col-offset-3   ">
+    <div class="col-md-8 col-offset-2">
 
-    <div name=SEARCH_FORM id="searchCriteria" class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">Search resumes</div>
-            <form method="get" action="/resumes/search">
-                <label>First name</label>
-                <input name="firstName" th:value="${param.firstName}" type="search"/>
-                <label>Last name</label>
-                <input name="lastName" th:value="${param.lastName}" type="search"/>
-                <label>Free text</label>
-                <input name="freeText" th:value="${param.freeText}" type="search"/>
-                <input type="submit" value="Search">
-            </form>
+        <div name=SEARCH_FORM id="searchCriteria" class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Search resumes</div>
+                <form method="get" action="/resumes/search">
+                    <fieldset>
+                        <legend>Search criteria</legend>
+                        <p><label class="field">First name:</label> <input name="firstName"
+                                                                           th:value="${param.firstName}"
+                                                                           type="input-textbox-300"/></p>
+                        <p><label class="field">Last name:</label> <input name="lastName" th:value="${param.lastName}"
+                                                                          type="input-textbox-300"/></p>
+                        <p><label class="field">Free text:</label> <input name="freeText" th:value="${param.freeText}"
+                                                                          type="input-textbox-300"/></p>
+                        <input class="submitbutton" type="submit" value="Search">
+                    </fieldset>
+                </form>
+            </div>
         </div>
-    </div>
 
 
+        <div name=SEARCH_RESULT id="result" class="row">
 
-    <div name=SEARCH_RESULT id="result" class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Results</div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">Results</div>
-
-                <div  th:if="${#lists.isEmpty(resumes)}">
+                <div th:if="${#lists.isEmpty(resumes)}">
                     Sorry, not resumes found matching the criteria.
                 </div>
                 <div class="panel-body" th:unless="${#lists.isEmpty(resumes)}">
@@ -58,9 +91,7 @@
                             <th>First name</th>
                             <th>Last name</th>
                             <th>Presentation</th>
-                            <th>Show</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,23 +111,19 @@
                             <td th:text="${resume.person.firstName}"></td>
                             <td th:text="${resume.person.lastName}"></td>
                             <td th:text="${resume.presentation.shortDescription}"></td>
-                            <td><a href="#" th:href="@{'/resumes/' + ${resume.id} + '/show'}">Show</a></td>
-                            <td><a href="#" th:href="@{'/resumes/' + ${resume.id} + '/edit'}">Edit</a></td>
-                            <td><a href="#" th:href="@{'/resumes/' + ${resume.id} + '/delete'}">Delete</a></td>
+                            <td><a href="#" th:href="@{'/resumes/' + ${resume.id} + '/show'}">Show Details</a></td>
                         </tr>
                         </tbody>
 
                     </table>
                 </div>
 
+            </div>
         </div>
+
+
     </div>
-
-
-
 </div>
-</div>
-
 
 
 </body>

@@ -2,7 +2,6 @@ package kriss0101.cvdb.client.controllers;
 
 import com.google.gson.Gson;
 import kriss0101.cvdb.api.commands.ResumeDTO;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -14,6 +13,7 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//@RunWith(SpringRunner.class)
 
 public class ResumeControllerTest {
+
 
 
     private ResumeController resumeController;
@@ -69,7 +69,8 @@ public class ResumeControllerTest {
     private static void mockAPICall_GetResumeByParameters(MockRestServiceServer mockRestServer) {
         List<ResumeDTO> resumes = Arrays.asList(new ResumeDTO());
         String jsonExpectedContent = new Gson().toJson(resumes);
-        mockRestServer.expect(requestTo("http://localhost:8080/api/resumes/search?firstName&lastName&freeText"))
+        String url = UriComponentsBuilder.fromUriString("/api/resumes/search").queryParam("firstName").queryParam("lastName").queryParam("freeText").build().toUriString();
+        mockRestServer.expect(requestTo(url))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(jsonExpectedContent, MediaType.APPLICATION_JSON));
     }
@@ -109,7 +110,8 @@ public class ResumeControllerTest {
     private static void mockAPICall_GetResumeById(MockRestServiceServer mockRestServer, Long id) {
         ResumeDTO resume = new ResumeDTO();
         String jsonExpectedContent = new Gson().toJson(resume);
-        mockRestServer.expect(requestTo("http://localhost:8080/api/resumes/" + id))
+        String url = "/resumes/" + id;
+        mockRestServer.expect(requestTo(url))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(jsonExpectedContent, MediaType.APPLICATION_JSON));
     }
@@ -134,11 +136,10 @@ public class ResumeControllerTest {
 
     }
 
-    @NotNull
     private static String mockAPICall_updateResume(ResumeDTO resume, MockRestServiceServer mockRestServer) {
         String jsonExpectedContent = new Gson().toJson(resume);
 
-        mockRestServer.expect(requestTo("http://localhost:8080/api/resumes"))
+        mockRestServer.expect(requestTo("/resumes/"))
                 .andExpect(method(HttpMethod.PUT))
                 .andRespond(withSuccess(jsonExpectedContent, MediaType.APPLICATION_JSON));
         return jsonExpectedContent;

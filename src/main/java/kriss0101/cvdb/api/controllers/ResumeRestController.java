@@ -49,7 +49,8 @@ public class ResumeRestController {
         ResumeMapper mapper = ResumeMapper.INSTANCE;
         Resume resume = mapper.resumeDTOToResume(resumeDTO);
 
-        ResumeDTO ret = mapper.resumeToResumeDTO(service.update(resume));
+        Resume resumeUpdated = service.update(resume);
+        ResumeDTO ret = mapper.resumeToResumeDTO(resumeUpdated);
         return ret;
     }
 

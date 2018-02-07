@@ -19,13 +19,6 @@ import java.util.List;
 @Controller
 public class ResumeController {
 
-    public static final String ATTRIBUTE_RESUMES = "resumes";
-    public static final String URL_API_RESUMES = "http://localhost:8080/api/resumes";
-    public static final String URL_API_SEARCH = "http://localhost:8080/api/resumes/search";
-    public static final String URL_API_BY_ID = "http://localhost:8080/api/resumes";
-
-
-
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 
@@ -36,11 +29,11 @@ public class ResumeController {
         this.restTemplate = restTemplate;
     }
 
-    @GetMapping({"", "/", "resumes/search"})
+    @GetMapping({"", "/", "resumes","resumes/search"})
     public String search(Model model, @RequestParam(value = "firstName", required = false) String firstName, @RequestParam(value = "lastName", required = false) String lastName, @RequestParam(value = "freeText", required = false) String freeText) {
 
-        List<ResumeDTO> resumes = getResumesBy(firstName, lastName, freeText);
-        model.addAttribute(ATTRIBUTE_RESUMES, resumes);
+        List<ResumeDTO> resumes = requestResumes_fromAPI(firstName, lastName, freeText);
+        model.addAttribute("resumes", resumes);
 
         logger.info("*****Found resumes******");
         resumes.stream().forEach(r -> logger.info(r.toString()));
@@ -50,7 +43,7 @@ public class ResumeController {
     @GetMapping("resumes/{id}")
     public String getById(Model model, @PathVariable Long id) {
 
-        ResumeDTO resume = getResumeBy(id);
+        ResumeDTO resume = requestResumeBy_FromAPI(id);
         model.addAttribute("Resume", resume);
 
         logger.info("*****Found resume******");
@@ -61,9 +54,9 @@ public class ResumeController {
 
 
 
-    private List<ResumeDTO> getResumesBy(String firstName, String lastName, String freeText) {
+    private List<ResumeDTO> requestResumes_fromAPI(String firstName, String lastName, String freeText) {
 
-        String rest_uri = UriComponentsBuilder.fromUriString(URL_API_SEARCH)
+        String rest_uri = UriComponentsBuilder.fromUriString("http://localhost:8080/api/resumes/search")
                 .queryParam("firstName", firstName)
                 .queryParam("lastName", lastName)
                 .queryParam("freeText", freeText).build().toUriString();
@@ -74,15 +67,15 @@ public class ResumeController {
         return Arrays.asList(res.getBody());
     }
 
-    @GetMapping("resumes/{id}/edit")
+    @GetMapping("resumes/{id}/show")
     public String edit(Model model, @PathVariable("id") Long id) {
-        ResumeDTO resume = getResumeBy(id);
+        ResumeDTO resume = requestResumeBy_FromAPI(id);
         model.addAttribute("resume", resume);
-        return "editResume";
+        return "showResume";
     }
 
-    private ResumeDTO getResumeBy(Long id) {
-        String rest_uri = UriComponentsBuilder.fromUriString(URL_API_BY_ID + "/" +id)
+    private ResumeDTO requestResumeBy_FromAPI(Long id) {
+        String rest_uri = UriComponentsBuilder.fromUriString("http://localhost:8080/api/resumes/" +id)
                 .build().toUriString();
 
         logger.info("ResumeController.search calling rest api at " + rest_uri);
@@ -91,12 +84,12 @@ public class ResumeController {
     }
     @PostMapping("resumes/update")
     public String update(@ModelAttribute("resume") ResumeDTO resumeDTO) {
-        ResumeDTO savedResumeDTO = updateResume(resumeDTO);
+        ResumeDTO savedResumeDTO = requestUpdateResume_fromAPI(resumeDTO);
         return "redirect:/resumes/" + savedResumeDTO.getId() +"/edit";
     }
-    private ResumeDTO updateResume(ResumeDTO resumeDTO) {
+    private ResumeDTO requestUpdateResume_fromAPI(ResumeDTO resumeDTO) {
 
-        String rest_uri = UriComponentsBuilder.fromUriString(URL_API_RESUMES)
+        String rest_uri = UriComponentsBuilder.fromUriString("http://localhost:8080/api/resumes/")
                     .build().toUriString();
 
         logger.info("ResumeController.update calling rest api at " + rest_uri);
