@@ -4,6 +4,7 @@ import kriss0101.cvdb.api.commands.SkillDTO;
 import kriss0101.cvdb.api.datamodel.Grade;
 import kriss0101.cvdb.api.datamodel.Skill;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +18,7 @@ public class SkillMapperTest {
         dto.setGrade(Grade.EXPERIENCED.getName());
 
         // When
-        SkillMapper mapper  = new SkillMapperImpl();
+        SkillMapper mapper  = Mappers.getMapper(SkillMapper.class);
         Skill skill = mapper.SkillDTOToSkill(dto);
 
         // Then
@@ -34,7 +35,7 @@ public class SkillMapperTest {
         skill.setGrade(Grade.EXPERIENCED);
 
         // When
-        SkillMapper mapper = new SkillMapperImpl();
+        SkillMapper mapper = Mappers.getMapper(SkillMapper.class);
         SkillDTO skillDTO =mapper.SkillToSkillDTO(skill);
 
         // Then

@@ -5,12 +5,11 @@ import kriss0101.cvdb.api.commands.SkillDTO;
 import kriss0101.cvdb.api.datamodel.Grade;
 import kriss0101.cvdb.api.datamodel.Skill;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface SkillMapper {
 
-    SkillMapper INSTANCE = Mappers.getMapper(SkillMapper.class);
+
 
     default Skill SkillDTOToSkill(SkillDTO dto) {
 

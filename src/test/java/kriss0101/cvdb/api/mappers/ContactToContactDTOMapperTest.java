@@ -3,6 +3,7 @@ package kriss0101.cvdb.api.mappers;
 import kriss0101.cvdb.api.commands.ContactDTO;
 import kriss0101.cvdb.api.datamodel.Contact;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,7 +17,7 @@ public class ContactToContactDTOMapperTest {
         c.setEmail("k@m");
         c.setAdress("vägen");
 
-        ContactDTO dto = ContactMapper.INSTANCE.ContactToContactDTO(c);
+        ContactDTO dto = Mappers.getMapper(ContactMapper.class).ContactToContactDTO(c);
 
         assertEquals(dto.getAdress(), c.getAdress());
         assertEquals(dto.getEmail(), c.getEmail());
@@ -33,7 +34,7 @@ public class ContactToContactDTOMapperTest {
         dto.setEmail("k@m");
         dto.setAdress("vägen");
 
-        Contact c  = ContactMapper.INSTANCE.ContactDTOToContact(dto);
+        Contact c  = Mappers.getMapper(ContactMapper.class).ContactDTOToContact(dto);
 
         assertEquals(dto.getAdress(), c.getAdress());
         assertEquals(dto.getEmail(), c.getEmail());

@@ -3,11 +3,20 @@ package kriss0101.cvdb.api.mappers;
 import kriss0101.cvdb.api.commands.PresentationDTO;
 import kriss0101.cvdb.api.datamodel.Presentation;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 
 import static org.junit.Assert.assertEquals;
 
 public class PresentationToPresentationDTOMapperTest {
+
+    private PresentationMapper mapper;
+
+    @Before
+    public void setUp() throws Exception {
+        mapper=Mappers.getMapper(PresentationMapper.class);
+    }
 
     @Test
     public void presentationToPresentationDTO() {
@@ -15,7 +24,7 @@ public class PresentationToPresentationDTOMapperTest {
         Presentation p = new Presentation("short","long");
 
         // When
-        PresentationDTO dto = PresentationMapper.INSTANCE.presentationTOPresentationDTO(p);
+        PresentationDTO dto = mapper.presentationTOPresentationDTO(p);
 
 
         // Then
@@ -31,7 +40,7 @@ public class PresentationToPresentationDTOMapperTest {
         dto.setLongDescription("long");
 
         // When
-        Presentation p = PresentationMapper.INSTANCE.presentationDTOTOPresentation(dto);
+        Presentation p = mapper.presentationDTOTOPresentation(dto);
 
         // Then
         assertEquals(p.getShortDescription(), dto.getShortDescription());

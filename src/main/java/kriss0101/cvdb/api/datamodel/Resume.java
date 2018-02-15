@@ -3,6 +3,7 @@ package kriss0101.cvdb.api.datamodel;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -26,15 +27,15 @@ public class Resume {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
-    private Set<Skill> skills;
+    private Set<Skill> skills = new HashSet();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
-    private Set<Assignment> assignments;
+    private Set<Assignment> assignments  = new HashSet();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
-    private Set<Education> educations;
+    private Set<Education> educations = new HashSet();
 
 
 }

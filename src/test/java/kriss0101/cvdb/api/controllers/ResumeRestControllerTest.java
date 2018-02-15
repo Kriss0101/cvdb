@@ -4,16 +4,19 @@ package kriss0101.cvdb.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import kriss0101.cvdb.api.commands.ResumeDTO;
 import kriss0101.cvdb.api.datamodel.*;
+import kriss0101.cvdb.api.mappers.ResumeMapper;
 import kriss0101.cvdb.api.services.ResumeService;
-import kriss0101.cvdb.client.commands.ResumeDTO;
 import org.junit.Before;
 import org.junit.Test;
+import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.internal.util.collections.Sets;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -27,38 +30,63 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Configuration
 public class ResumeRestControllerTest {
 
 
-    public static final String RESUME_API = "/api/resumes";
+	// Mock that only forwards the id
+    private class ResumeMapperMockImpl implements ResumeMapper {
+
+		@Override
+		public ResumeDTO resumeToResumeDTO(Resume resume) {
+			ResumeDTO dto = new ResumeDTO();
+			dto.setId(resume.getId());
+			return dto;
+		}
+
+		@Override
+		public Resume resumeDTOToResume(ResumeDTO dto) {
+			return Resume.builder().id(dto.getId()).build();
+		}
+
+	}
+
+	public static final String RESUME_API = "/api/resumes";
 
     @Mock
-    ResumeService resumeService;
+    ResumeService resumeServiceMock;
 
-    @InjectMocks
+
     ResumeRestController controller;
 
     MockMvc mvc;
+
+    
+	private ResumeMapper resumeMapperMock = new ResumeMapperMockImpl();
 
     @Before
     public void setUp() throws Exception {
 
         MockitoAnnotations.initMocks(this);
 
+        controller = new ResumeRestController(resumeServiceMock, resumeMapperMock);
+
         mvc = MockMvcBuilders.standaloneSetup(controller)
                 .build();
     }
 
+    @Bean
+    ResumeMapper getResumeMapper() {
+        return Mappers.getMapper(ResumeMapper.class);
+    }
 
     @Test
     public void testGetAllResumes_ReturnOkAndCorrectCount() throws Exception {
@@ -68,7 +96,7 @@ public class ResumeRestControllerTest {
         Resume r2 = Resume.builder().build();
         Resume r3 = Resume.builder().build();
 
-        when(resumeService.getResumes()).thenReturn(Arrays.asList(r1,r2,r3));
+        when(resumeServiceMock.getResumes()).thenReturn(Arrays.asList(r1,r2,r3));
 
         // When
         MvcResult res = mvc.perform(get(RESUME_API))
@@ -87,9 +115,8 @@ public class ResumeRestControllerTest {
         Long expectedId= 6L;
         resumeDTO.setId(expectedId);
 
-
-        when(resumeService.update(any(Resume.class))).thenReturn(new Resume());
-
+        when(resumeServiceMock.update(any(Resume.class))).thenReturn(new Resume());
+ 
         // When
         String  jsonContent = new Gson().toJson(resumeDTO);
         mvc.perform(put(RESUME_API)
@@ -100,10 +127,11 @@ public class ResumeRestControllerTest {
                 .andExpect(status().isOk());
 
         ArgumentCaptor<Resume> captor = ArgumentCaptor.forClass(Resume.class);
-        verify(resumeService, times(1)).update(captor.capture());
+        verify(resumeServiceMock, times(1)).update(captor.capture());
 
         assertThat(captor.getValue().getId()).isEqualTo(expectedId);
     }
+
     @Test
     public void testSaveResume_ShouldSuceed200() throws Exception {
         // Given
@@ -112,7 +140,7 @@ public class ResumeRestControllerTest {
                 .presentation(new Presentation("Very skilled developer", "I am a very very good developer"))
                 .skills(Sets.newSet(new Skill("java", Grade.EXPERIENCED))).build();
 
-        when(resumeService.save(any(Resume.class))).thenReturn(r1);
+        when(resumeServiceMock.save(any(Resume.class))).thenReturn(r1);
 
         // When
         ObjectMapper jsonMapper = new ObjectMapper();
@@ -130,15 +158,16 @@ public class ResumeRestControllerTest {
     public void testGetById_ExpectExists() throws Exception {
         // Given
         Resume r1 = Resume.builder().id(10L).build();
-        when(resumeService.getById(anyLong())).thenReturn(Optional.of(r1));
+        when(resumeServiceMock.getById(anyLong())).thenReturn(Optional.of(r1));
 
-        Long id = 10L;
+        Long expectedId = 10L;
         // When
-        MvcResult res = mvc.perform(get(RESUME_API +"/"+id))
+        MvcResult res = mvc.perform(get(RESUME_API +"/"+expectedId))
 
                 // Then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("10"))
+                .andDo(print(System.err))
+                .andExpect(jsonPath("$.id").value(expectedId))
                 .andReturn();
 
 
@@ -159,7 +188,8 @@ public class ResumeRestControllerTest {
     public void testGetById_ExpectIsNotFound() throws Exception {
         // Given
         Resume r1 = Resume.builder().id(10L).build();
-        when(resumeService.getById(10L)).thenReturn(Optional.of(r1));
+        when(resumeServiceMock.getById(10L)).thenReturn(Optional.of(r1));
+        
 
         Long id = 11L;
         // When
@@ -172,7 +202,7 @@ public class ResumeRestControllerTest {
     }
 
     @Test
-    public void testSearchResumes() throws Exception {
+    public void testSearchResumes_ExpectThree() throws Exception {
         // Given
         Person p1 = Person.builder().id(1L).firstName("Pelle").lastName("Persson").build();
         Person p2 = Person.builder().id(2L).firstName("Kalle").lastName("Karlsson").build();
@@ -198,7 +228,7 @@ public class ResumeRestControllerTest {
 
 
 
-        when(resumeService.search(any(SearchCriteria.class))).thenReturn(Arrays.asList(r1, r2, r3));
+        when(resumeServiceMock.search(any(SearchCriteria.class))).thenReturn(Arrays.asList(r1, r2, r3));
 
         // When
         UriComponents ub = UriComponentsBuilder.fromUriString(RESUME_API+"/search").queryParam("firstName", "adfs").queryParam("lastName", "fda").queryParam("freeText", "kek").build();
@@ -208,12 +238,11 @@ public class ResumeRestControllerTest {
 
                 // Then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].presentation.shortDescription", is(r1.getPresentation().getShortDescription())))
+                .andExpect(jsonPath("$", hasSize(3)))                
                 .andReturn();
 
         ArgumentCaptor<SearchCriteria> argCapture = ArgumentCaptor.forClass(SearchCriteria.class);
-        verify(resumeService, times(1)).search(argCapture.capture());
+        verify(resumeServiceMock, times(1)).search(argCapture.capture());
         SearchCriteria capturedArg = argCapture.getValue();
         assertThat(capturedArg.getFirstName()).isEqualTo("adfs");
 
