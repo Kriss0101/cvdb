@@ -2,6 +2,7 @@ package cvdb.api.services;
 
 import cvdb.api.datamodel.Person;
 import cvdb.api.repositories.PersonRepository;
+import cvdb.api.exceptions.UpdateResourceException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person updatePerson(Person person) {
         if (person.getId() == null) {
-            throw new RuntimeException("Cannot update person. Id must not be null.");
+            throw new UpdateResourceException("Cannot update person. Id must not be null.");
         }
         return repo.save(person);
     }
