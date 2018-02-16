@@ -15,4 +15,15 @@ public class SearchCriteria {
     private String lastName;
     private String freeText;
 
+    public boolean isEmpty() {
+        return fieldsEmpty(firstName,lastName,freeText);
+    }
+
+    private boolean fieldsEmpty(String...fields) {
+        boolean allFieldsEmpty = true;
+        for (String field : fields) {
+            allFieldsEmpty &=field == null || field.trim().isEmpty();
+        }
+        return allFieldsEmpty;
+    }
 }

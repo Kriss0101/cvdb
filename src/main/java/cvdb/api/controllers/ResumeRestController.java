@@ -1,11 +1,14 @@
 package cvdb.api.controllers;
 
 import cvdb.api.commands.ResumeDTO;
+import cvdb.api.commands.SearchCriteriaDTO;
 import cvdb.api.datamodel.Resume;
 import cvdb.api.datamodel.SearchCriteria;
 import cvdb.api.exceptions.ResourceNotFoundException;
 import cvdb.api.mappers.ResumeMapper;
+import cvdb.api.mappers.SearchCriteriaMapper;
 import cvdb.api.services.ResumeService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +31,7 @@ public class ResumeRestController {
         this.service = service; this.resumeMapper = resumeMapper;
     }
 
-    @GetMapping({"","/"})
-    @ResponseStatus(HttpStatus.OK)
-    public List<ResumeDTO> getAllResumes() {
-        return service.getResumes().stream().map(resumeMapper::resumeToResumeDTO).collect(Collectors.toList());
-    }
+
 
     @GetMapping("/{id}")
     public ResumeDTO getById(@PathVariable Long id) {
@@ -59,13 +58,26 @@ public class ResumeRestController {
         return resumeMapper.resumeToResumeDTO(service.save(resumeMapper.resumeDTOToResume(resumeDTO)));
     }
 
-    @GetMapping("/search")
-    public List<ResumeDTO> search(@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
+    @GetMapping({"/",""})
+    @ResponseStatus(HttpStatus.OK)
+    //public List<ResumeDTO> getResumesByCriteria(@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
+        public List<ResumeDTO> getResumesByCriteria(SearchCriteriaDTO criteria) { //@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
 
-
-        SearchCriteria searchCriteria = SearchCriteria.builder().firstName(firstName).lastName(lastName).freeText(freeText).build();
-        List<Resume> resumes = service.search(searchCriteria);
-
-        return resumes.stream().map(resumeMapper::resumeToResumeDTO).collect(Collectors.toList());
+        SearchCriteria searchCriteria = Mappers.getMapper(SearchCriteriaMapper.class).searchCriteriaDTOToSearchCriteria(criteria);
+        if (searchCriteria.isEmpty()) {
+            return getAllResumes();
+        } else {
+            return getFilteredResumes(searchCriteria);
+        }
     }
+
+    private List<ResumeDTO> getFilteredResumes(SearchCriteria searchCriteria) {
+        return service.search(searchCriteria).stream().map(resumeMapper::resumeToResumeDTO).collect(Collectors.toList());
+    }
+
+    private List<ResumeDTO> getAllResumes() {
+        return service.getResumes().stream().map(resumeMapper::resumeToResumeDTO).collect(Collectors.toList());
+    }
+
+
 }

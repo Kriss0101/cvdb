@@ -7,8 +7,14 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface SearchCriteriaMapper {
 
+    default SearchCriteria searchCriteriaDTOToSearchCriteria(SearchCriteriaDTO dto) {
+        SearchCriteria criteria = SearchCriteria.builder()
+                .firstName(dto.getFirstName().trim())
+                .lastName(dto.getLastName().trim())
+                .freeText(dto.getFreeText().trim()).build();
 
+        return criteria;
 
-    SearchCriteria searchCriteriaDTOToSearchCriteria(SearchCriteriaDTO dto);
+    }
     SearchCriteriaDTO searchCriteriaToSearchCriteriaDTO(SearchCriteria criteria);
 }

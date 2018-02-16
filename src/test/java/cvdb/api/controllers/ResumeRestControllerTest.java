@@ -4,11 +4,10 @@ package cvdb.api.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import cvdb.api.controllers.ResumeRestController;
 import cvdb.api.commands.ResumeDTO;
+import cvdb.api.commands.SearchCriteriaDTO;
 import cvdb.api.datamodel.*;
 import cvdb.api.mappers.ResumeMapper;
-import cvdb.api.services.ResumeService;
 import cvdb.api.services.ResumeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +26,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -206,6 +206,57 @@ public class ResumeRestControllerTest {
     @Test
     public void testSearchResumes_ExpectThree() throws Exception {
         // Given
+        List<Resume> resumes = testResumes();
+
+        when(resumeServiceMock.search(any(SearchCriteria.class))).thenReturn(resumes);
+
+        // When
+        UriComponents ub = UriComponentsBuilder.fromUriString(RESUME_API).queryParam("firstName", "adfs").queryParam("lastName", "fda").queryParam("freeText", "kek").build();
+
+        mvc.perform(get(ub.toUriString()))
+
+                // Then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+
+    }
+
+    @Test
+    public void testGetResumesByCriteria_ExpectSearchCriteriaCorrecltyPassedToService() throws Exception {
+        // Given
+        List<Resume> resumes = testResumes();
+
+        SearchCriteriaDTO dto = new SearchCriteriaDTO();
+        dto.setFirstName("first");
+        dto.setLastName("last");
+        dto.setFreeText("free");
+
+        when(resumeServiceMock.search(any(SearchCriteria.class))).thenReturn(resumes);
+
+        // When
+        UriComponents ub = UriComponentsBuilder.fromUriString(RESUME_API)
+                .queryParam("firstName",dto.getFirstName())
+                .queryParam("lastName", dto.getLastName())
+                .queryParam("freeText",dto.getFreeText()).build();
+
+        mvc.perform(get(ub.toUriString()))
+
+                // Then
+                .andExpect(status().isOk());
+
+        ArgumentCaptor<SearchCriteria> argCapture = ArgumentCaptor.forClass(SearchCriteria.class);
+        verify(resumeServiceMock, times(1)).search(argCapture.capture());
+        SearchCriteria capturedArg = argCapture.getValue();
+
+        assertThat(capturedArg.getFirstName()).isEqualTo(dto.getFirstName());
+        assertThat(capturedArg.getLastName()).isEqualTo(dto.getLastName());
+        assertThat(capturedArg.getFreeText()).isEqualTo(dto.getFreeText());
+
+    }
+
+    private List<Resume> testResumes() {
+
+        // Given
         Person p1 = Person.builder().id(1L).firstName("Pelle").lastName("Persson").build();
         Person p2 = Person.builder().id(2L).firstName("Kalle").lastName("Karlsson").build();
 
@@ -228,26 +279,7 @@ public class ResumeRestControllerTest {
                 .presentation(new Presentation("Very nice  developer", "I am a very very nice developer"))
                 .skills(Sets.newSet(new Skill("java", Grade.EXPERIENCED))).build();
 
-
-
-        when(resumeServiceMock.search(any(SearchCriteria.class))).thenReturn(Arrays.asList(r1, r2, r3));
-
-        // When
-        UriComponents ub = UriComponentsBuilder.fromUriString(RESUME_API+"/search").queryParam("firstName", "adfs").queryParam("lastName", "fda").queryParam("freeText", "kek").build();
-
-        System.out.println(ub.toUriString());
-        mvc.perform(get(ub.toUriString()))
-
-                // Then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))                
-                .andReturn();
-
-        ArgumentCaptor<SearchCriteria> argCapture = ArgumentCaptor.forClass(SearchCriteria.class);
-        verify(resumeServiceMock, times(1)).search(argCapture.capture());
-        SearchCriteria capturedArg = argCapture.getValue();
-        assertThat(capturedArg.getFirstName()).isEqualTo("adfs");
-
+        return Arrays.asList(r1,r2,r3);
     }
 
 }
