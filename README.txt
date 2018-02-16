@@ -1,10 +1,12 @@
 # cvdb
 
-A REST API and Web client for managaging and browsing Candidates and their Resumes (CVs).
+A REST API and browser client for managaging and browsing Resumes (CVs). The RESTful API is located under
 
-Implementation notes:
 
-Follow TDD (test first) using AssertJ. Assertions are written in a BDD-style (given..when..then)
+Implementation notes
+-----------------------
+
+Test Driven Development using AssertJ. Assertions are written in a BDD-style (given..when..then)
 
 REST endpoints are implemented in controllers annotated with Spring's @RestControllers. JSON-marshalling from POJOS are done MappingJackson2HttpConverter (autoconfigured by Spring Boot)
 

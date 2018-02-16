@@ -1,42 +1,34 @@
-entity Skill {
-	name String
-
-}
-
-entity SkillLevel {
-	level Integer
-}
 
 entity Person {
 	firstName String,
-    lastName String,
-        
-    
-    presentation String
+    lastName String    
     
 }
+entity Skill {
+	name String,
+	level Integer
+}
+entity Resume {
+ 	title String
+}
+
+
 entity Contact {
 	adress String,
     email String
     
 }
-relationship OneToOne {
-	Person{contact} to Contact
-}
+
 entity Presentation {
 	shortDescription String,
     longDescription String
-}
-relationship OneToOne {
-	Person{presentation} to Presentation
 }
 
 entity Assignment {
 	shortDescription String,
     longDescription String,
     fromYear Integer,
-    toYear Integer,
-    employer String
+    toYear Integer    
 }
 
 entity Education {
@@ -45,19 +37,27 @@ entity Education {
     toYear Integer
 }
 
-
+relationship OneToOne {
+	Person{contact} to Contact
+}
+relationship OneToOne {
+	Resume{presentation} to Presentation
+}
+relationship OneToMany {
+	Person{resumes} to Resume
+}
 relationship ManyToOne {
-	Skill{level} to SkillLevel
+	Resume{person} to Person
+}
+relationship OneToMany {
+	Resume{skills} to Skill
 }
 
 relationship OneToMany {
-	Person{skill} to Skill
+	Resume{assignments} to Assignment
 }
-relationship ManyToOne {
-	Person{assignments} to Assignment
-}
-relationship ManyToOne {
-	Person{education} to Education
+relationship OneToMany {
+	Resume{education} to Education
 }
 
 
