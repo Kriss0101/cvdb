@@ -3,6 +3,7 @@ package cvdb.api.services;
 import cvdb.api.datamodel.Resume;
 import cvdb.api.datamodel.SearchCriteria;
 import cvdb.api.exceptions.ResourceAlreadyExistException;
+import cvdb.api.exceptions.UpdateResourceException;
 import cvdb.api.repositories.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public Resume update(Resume resume) {
         if (resume.getId() == null) {
-            throw new RuntimeException("Cannot update resume. Id must not be null");
+            throw new UpdateResourceException("Cannot update resume. Id must not be null");
         }
         return resumeRepository.save(resume);
     }

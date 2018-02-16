@@ -3,12 +3,13 @@ package cvdb;
 import cvdb.api.datamodel.*;
 import cvdb.api.repositories.PersonRepository;
 import cvdb.api.repositories.ResumeRepository;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+@Slf4j
 public class ResumesTestFixture {
 
 
@@ -47,8 +48,7 @@ public class ResumesTestFixture {
         );
         Resume pelleResume1 = Resume.builder().title("Pelles första CV").person(pelle).educations(new HashSet(pellesEducations)).presentation(pellesPresentation).skills(new HashSet(pellesSkills)).assignments(new HashSet(pellesAssignments)).build();
 
-//        Resume pelleResume2 = Resume.builder().title("Pelles andra CV").person(pelle).educations(new HashSet(pellesEducations)).presentation(pellesPresentation).skills(new HashSet(pellesSkills)).assignments(new HashSet(pellesAssignments)).build();
-        //Assert.assertTrue(pellesAssignments.get(0).getId() == null);
+
         resumeRepository.save(pelleResume1);
 
         // Second resume
@@ -66,9 +66,8 @@ public class ResumesTestFixture {
                 new Skill("Java", Grade.AUTHORITY),
                 new Skill("Koka kaffe", Grade.EXPERIENCED)
         );
-        //Assert.assertTrue(pellesAssignments.get(0).getId() != null);
-        Resume pelleResume2 = Resume.builder().title("Pelles andra CV").person(pelle).educations(new HashSet(pellesEducations2)).presentation(pellesPresentation2).skills(new HashSet(pellesSkills2)).assignments(new HashSet(pellesAssignments2)).build();
 
+        Resume pelleResume2 = Resume.builder().title("Pelles andra CV").person(pelle).educations(new HashSet(pellesEducations2)).presentation(pellesPresentation2).skills(new HashSet(pellesSkills2)).assignments(new HashSet(pellesAssignments2)).build();
 
         resumeRepository.save(pelleResume2);
 
@@ -77,8 +76,7 @@ public class ResumesTestFixture {
 
     private  void verifyData() {
         Iterable<Resume> found = resumeRepository.findAll();
-        ArrayList<Resume > resumes = new ArrayList();
-        found.forEach(System.out::println);
+        found.forEach(e->log.info(e.toString()));
 
     }
     private  void storeResumesPerson2() {

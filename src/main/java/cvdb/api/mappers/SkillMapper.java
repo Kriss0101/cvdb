@@ -9,13 +9,8 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface SkillMapper {
 
-
-
     default Skill SkillDTOToSkill(SkillDTO dto) {
-
-        Skill skill  = new Skill(dto.getDescription(), Grade.valueOfName(dto.getGrade()));
-        return skill;
-
+        return new Skill(dto.getDescription(), Grade.valueOfName(dto.getGrade()));
     }
 
     default SkillDTO SkillToSkillDTO(Skill skill) {
