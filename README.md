@@ -54,15 +54,15 @@ The view displays details of a resume selected in the searchResumes.html view.
 ## Some things left to do
 
 ### REST API
-Authorization/antentication (a person can create/edit their resumes, other can only view)
-Add Pagination support for resumes
-Add a picture property of persons.
-Add Person endpoints
+Authorization/antentication (a person can create/edit their resumes, other can only view)<br>
+Add Pagination support for resumes<br>
+Add a picture property of persons.<br>
+Add Person endpoints<br>
 
 ### Browser
-Add views and controllers to Add/edit a resume
-Add Pagination in the search view.
-Increase test coverage of the browser
+Add views and controllers to Add/edit a resume<br>
+Add Pagination in the search view.<br>
+Increase test coverage of the browser<br>
 
 
 
