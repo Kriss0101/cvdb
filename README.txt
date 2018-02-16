@@ -6,39 +6,60 @@ A REST API and browser client for managaging and browsing Resumes (CVs). The RES
 Implementation notes
 -----------------------
 
-Test Driven Development using AssertJ. Assertions are written in a BDD-style (given..when..then)
+** Database
+The database is currently a in-memory H2 database initialized with data at startup.
+Spring JPA with entities annotation with @Entity and interfaces extending CrudRepository are used.
+
+** Domain model
+The domain mata model was created in JDL-studio, generting the following iagram:
+
+[Domain model diagram](jhipster.png)
+
+** REST End-points
+
+GET /api/resumes gets a list of all resumes
+
+GET /api/resumes?firstName&lastName&freeText gets a filtered list of resumes matching firstName, lastName on owning
+    person and freeText on name of owner and embedded fields (i.e. assignments, educations). The filtering is made by
+    a JPQL query in api.repositories.ResumeRepository.
+
+PUT /api/resumes updates resume properties and honors upate of the person id of owning person. But it does not update person properties (e.g. name, adress).
+
+POST /api/resumes adds a resume
+
+POST /
+
+Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). Assertions are written in a BDD-style (given..when..then). The overall test coverage is about 80% (90% for the API).
+
+SonalLint was used to scan for code smells.
 
 REST endpoints are implemented in controllers annotated with Spring's @RestControllers. JSON-marshalling from POJOS are done MappingJackson2HttpConverter (autoconfigured by Spring Boot)
 
-Data Transfer Objects (a.k.a DTO/command objects) are used consistently instead of Domain objects at the rest-endpoints.
+Data Transfer Objects (a.k.a command objects) are used consistently instead of Domain objects at the rest-endpoints.
 
 MapStruct is used to generate mappers for conversion between DTO and domain objects. Conversion to Domain Objects are performed in the controllers so that the Services handle only Domain Objects
 
-Validation of form data is done using the validation annotations in the Data Transfer Objects
+Lombok @Data, @Builder annotations was used for generated getters/setters/equals/hashcode and buildres on domainobjects and DTOs.
 
-Lombok @Data annotation is used for generated getters/setters/equals/hashcode on domainobjects and DTOs.
+Custom runtime exceptions annotated with suitable Http status codes are thrown for exceptional events (for example for a POST when a resource already exists)
 
-Custom runtime exceptions annotaed with suitable Http status codes are thrown for exceptional events (for example for a POST when a resource already exists)
+Thrown exceptions in the API are handled a class annotated with @ControllerAdvice. It returns a custom response object with status code, message and date.
 
-Some errors are handled by custom exception handlers in a class annotated with @ControllerAdvice. This includes a validtionEceptionHandler to handle method parameter validation errors. A handler for Exception is used as a fall back.
+The API end-point "resumes" provides a searching functionality of resumes. The searching can be done by a combination of first tname, last name and freetext. The free text phrase is search for in the nearly all resume embedded entities (by a JPQL query in the ResumeRepository).
 
-The API end point "resumes/search" provides a searching functionality of resumes. The searching can be done by a combination of first tname, last name and freetext. The free text phrase is search for in the nearly all resume embedded entities (by a JPQL query in the ResumeRepository).
 
-I created the data model in JDL-studio:
-
-<Link to JDL-Studio diagram here>
 
 
 TODO
 ------
 
-Show validation messages in form from the bindingresults
+Browser: Views to Add/edit a resume
+API: Authorization/antentication (a person can create/edit their resumes, other can only view)
+API: Add a picture property of persons.
+Browser: Add Pagination in the search view.
+Browser: Increase test coverage of the browser
 
-Show resume details of selected resume
 
-Add/edit a resume (for logged in resume user)
-
-Declare mandatory fields for datamodel builders
 
 
 
