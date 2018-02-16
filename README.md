@@ -2,7 +2,7 @@
 
 A project for a 1) REST API and 2) Resume Browser for managaging and browsing Resumes (CVs).
 
-The project is based on Spring Boot using Spring MVC, Spring JPA.
+The project is based on Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito.
 
 ## Implementation notes
 
@@ -47,9 +47,17 @@ Thrown exceptions in the API are handled a class annotated with @ControllerAdvic
 
 The API end-point "resumes" provides a searching functionality of resumes. The searching can be done by a combination of first tname, last name and freetext. The free text phrase is search for in the nearly all resume embedded entities (by a JPQL query in the ResumeRepository).
 
+## Resume browser
+
+The browser consists of the following end-points (backed by Spring Conttrollers):
+
+### /resumes (searchResumes.html)
+The view displays a form for entering search criterias for searching resumes. Currently, resumes can be filtered by firstName, lastName of owning person and a freeText phrase. Search criterias are sent as query parameteres in the URL and if left empty, this view displays all resumes.
+
+### /resumes/{id}( showResume.html)
+The view displays details of a resume selected in the searchResumes.html view.
 
 ## Some things left to do
-
 
 ### REST API
 Authorization/antentication (a person can create/edit their resumes, other can only view)
