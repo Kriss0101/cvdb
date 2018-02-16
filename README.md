@@ -1,3 +1,5 @@
+# CVDB
+
 A project for a 1) REST API and 2) Resume Browser for managaging and browsing Resumes (CVs).
 
 The project is based on Spring Boot using Spring MVC, Spring JPA.
@@ -50,9 +52,10 @@ The API end-point "resumes" provides a searching functionality of resumes. The s
 Some things left to do
 ------
 
-Browser: Views to Add/edit a resume
 API: Authorization/antentication (a person can create/edit their resumes, other can only view)
 API: Add a picture property of persons.
+
+Browser: Views to Add/edit a resume
 Browser: Add Pagination in the search view.
 Browser: Increase test coverage of the browser
 
