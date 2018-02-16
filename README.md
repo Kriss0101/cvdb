@@ -4,19 +4,18 @@ A project for a 1) REST API and 2) Resume Browser for managaging and browsing Re
 
 The project is based on Spring Boot using Spring MVC, Spring JPA.
 
-Implementation notes
------------------------
+## Implementation notes
 
-** Database
+### Database
 The database is currently a in-memory H2 database initialized with data at startup.
 Spring JPA with entities annotation with @Entity and interfaces extending CrudRepository are used.
 
-** Domain model
+### Domain model
 The domain mata model was created in JDL-studio, generting the following iagram:
 
 [Domain model diagram](jhipster.png)
 
-** REST End-points
+### REST End-points
 
 GET /api/resumes gets a list of all resumes
 
@@ -49,15 +48,19 @@ Thrown exceptions in the API are handled a class annotated with @ControllerAdvic
 The API end-point "resumes" provides a searching functionality of resumes. The searching can be done by a combination of first tname, last name and freetext. The free text phrase is search for in the nearly all resume embedded entities (by a JPQL query in the ResumeRepository).
 
 
-Some things left to do
-------
+## Some things left to do
 
-API: Authorization/antentication (a person can create/edit their resumes, other can only view)
-API: Add a picture property of persons.
 
-Browser: Views to Add/edit a resume
-Browser: Add Pagination in the search view.
-Browser: Increase test coverage of the browser
+### REST API
+Authorization/antentication (a person can create/edit their resumes, other can only view)
+Add Pagination support for resumes
+Add a picture property of persons.
+Add Person endpoints
+
+### Browser
+Add views and controllers to Add/edit a resume
+Add Pagination in the search view.
+Increase test coverage of the browser
 
 
 
