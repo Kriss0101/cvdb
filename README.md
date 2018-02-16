@@ -13,7 +13,7 @@ Spring JPA with entities annotation with @Entity and interfaces extending CrudRe
 ### Domain model
 The domain mata model was created in JDL-studio, generting the following iagram:
 
-[Domain model diagram](blob/master/jhipster-jdl.png)
+[Domain model diagram](https://github.com/kristofercode/cvdb/blob/master/jhipster-jdl.png)
 
 ### REST End-points
 
