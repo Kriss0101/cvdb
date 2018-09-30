@@ -1,17 +1,17 @@
 # CVDB
 
-A project for a 1) REST API and 2) Resume Browser for managaging and browsing Resumes (CVs).
+A project for consisting of two projects: a REST API for creating, updating and retrieving Resumes (CVs) and a client for consuming the API (a resume browser). I created this project during two weeks as a way of training in Spring and REST-ful APIs. 
 
-The project is based on Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito. Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). Assertions are written in a BDD-style (given..when..then). The overall test coverage is about 80% (90% for the API).
+The project is using Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito. Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). Assertions are written in a BDD-style (given..when..then). The overall test coverage is about 80% (90% for the API).
 
 ## Database
 The database is currently a in-memory H2 database initialized with data at startup.
 Spring JPA with entities annotation with @Entity and interfaces extending CrudRepository are used.
 
-## Domain model
-The domain mata model was created in JDL-studio, generting the following iagram:
+## Data model
+The data model was created in JDL-studio, generting the following iagram:
 
-[Domain model diagram](https://github.com/kristofercode/cvdb/blob/master/datamodel.png)
+[Data model diagram](https://github.com/kristofercode/cvdb/blob/master/datamodel.png)
 
 ## RESTful API
 
@@ -54,15 +54,15 @@ The view displays details of a resume selected in the searchResumes.html view.
 ## Some things left to do
 
 ### REST API
-Authorization/antentication (a person can create/edit their resumes, other can only view)<br>
-Add Pagination support for resumes<br>
-Add a picture property of persons.<br>
-Add Person endpoints<br>
+Authorization/antentication (a person can create/edit their resumes, other can only view)
+Add Pagination support for resumes
+Add a picture property of persons.
+Add Person endpoints
 
 ### Browser
-Add views and controllers to Add/edit a resume<br>
-Add Pagination in the search view.<br>
-Increase test coverage of the browser<br>
+Add views and controllers to Add/edit a resume
+Add Pagination in the search view.
+Make fancier
 
 
 
