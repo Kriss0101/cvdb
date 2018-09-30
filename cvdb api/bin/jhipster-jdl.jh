@@ -1,0 +1,63 @@
+
+entity Person {
+	firstName String,
+    lastName String    
+    
+}
+entity Skill {
+	name String,
+	level Integer
+}
+entity Resume {
+ 	title String
+}
+
+
+entity Contact {
+	adress String,
+    email String
+    
+}
+
+entity Presentation {
+	shortDescription String,
+    longDescription String
+}
+
+entity Assignment {
+	shortDescription String,
+    longDescription String,
+    fromYear Integer,
+    toYear Integer    
+}
+
+entity Education {
+	description String,
+    fromYear Integer,
+    toYear Integer
+}
+
+relationship OneToOne {
+	Person{contact} to Contact
+}
+relationship OneToOne {
+	Resume{presentation} to Presentation
+}
+relationship OneToMany {
+	Person{resumes} to Resume
+}
+relationship ManyToOne {
+	Resume{person} to Person
+}
+relationship OneToMany {
+	Resume{skills} to Skill
+}
+
+relationship OneToMany {
+	Resume{assignments} to Assignment
+}
+relationship OneToMany {
+	Resume{education} to Education
+}
+
+
