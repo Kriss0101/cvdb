@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!--
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    -->
+
+    <style>
+
+        .subheader {
+            font-size:26px;
+        }
+
+
+        .submitbutton {
+            float: right;
+        }
+
+        ul.itemlist {
+            list-style-type: none;
+        }
+ label.field-name {
+            text-align: left;
+            width: 100px;
+            float: left;
+            font-weight: bold;
+        }
+        label.field-value {
+            text-align: left;
+            width: 100px;
+            float: left;
+            font-weight: bold;
+        }
+         .section {
+            clear: both;
+            padding: 5px;
+        }
+        .section p{
+            clear: both;
+
+        }
+        .backlink {
+            float: left;
+            width: 100px;
+        }
+        .panel-heading .title {
+            float: right;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div name=MAIN_CONTAINER class="container h-100">
+    <div name=MAIN_ROW class="row">
+        <div class="col-md-6 col-md-offset-3"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading title" th:object="${resume}"
+                 th:text="*{'Resume for ' + person.firstName + ' ' + person.lastName}">Resume for N N
+        <a href="back" class="backlink" th:href="/resumes/search"><< Back</a>
+            </div>
+            <div class="panel-body">
+                <th:block th:object="${resume}">
+                    <input type="hidden" th:field="*{id}"/>
+
+                    <div class="section" id="Contact_Section" th:object="${resume.person.contact}">
+
+                        <label class="subheader">Contact</label>
+
+                        <p>
+                            <label class="field-name">Adress: </label>
+                            <label class="field-value" th:text="${resume.person.contact.adress}">adress here</label>
+                        </p>
+
+                        <p>
+                            <label class="field-name">Phone: </label>
+                            <label class="field-value" th:text="${resume.person.contact.phone}">123-3333</label>
+                        </p>
+                    </div>
+
+                    <div class="section" id="Presentation_Section" th:object="${resume.presentation}">
+                        <label class="subheader">Presentation</label>
+                        <table>
+                            <thead>
+                            <td><label th:text="*{shortDescription}"/></td>
+                            </thead>
+                            <tr>
+                            <td><p th:text="*{longDescription}"></p></td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+                    <div class="section" id="Assignment_Section">
+                    <label class="subheader">Assignments</label>
+
+                    <ul class="itemlist">
+                        <li th:each="assignment, iterStat : *{assignments}">
+                            <table class="table content">
+                                <thead>
+                                <td>
+                                    <label th:text="${assignment.fromYear}"/>-<label th:text="${assignment.toYear}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label th:text="${assignment.employer}"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label th:text="${assignment.shortDescription}"/>
+                                </td>
+                                </thead>
+                                <tr>
+                                    <td colspan="3">
+                                        <p><label th:text="${assignment.longDescription}"/></p>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </li>
+                    </ul>
+                    </div>
+
+                    <label class="subheader">Education</label>
+
+                    <ul class="itemlist">
+                        <li th:each="edu : *{educations}">
+                            <table>
+                                <thead>
+                                <td>
+                                    <label th:text="${edu.fromYear}"/> - <label th:text="${edu.toYear}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <p><label th:text="${edu.description}"/></p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </li>
+                    </ul>
+
+                    <label class="subheader">Skills</label>
+
+                    <ul class="itemlist">
+                        <li th:each="skill : *{skills}">
+                            <label th:text="${skill.description}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label th:text="${skill.grade}"/>
+                        </li>
+                    </ul>
+
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
