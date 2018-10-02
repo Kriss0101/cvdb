@@ -13,7 +13,7 @@ The data model was created in JDL-studio, generting the following iagram:
 
 [Data model diagram](https://github.com/kristofercode/cvdb/blob/master/datamodel.png)
 
-## RESTful API
+## REST API
 
 REST endpoints are implemented in Spring's @RestControllers.Data Transfer Objects (a.k.a command objects) are used consistently instead of Domain objects at the rest-endpoints.
 
@@ -41,27 +41,32 @@ POST /api/resumes adds a resume
 GET /api/resumes{id} retrieves details of a selected resume
 
 
-## Resume browser
+### Resume browser
 
 The browser consists of the following end-points (backed by Spring Conttrollers):
 
-### /resumes (searchResumes.html)
+/resumes (searchResumes.html)
 The view displays a form for entering search criterias for searching resumes. Currently, resumes can be filtered by firstName, lastName of owning person and a freeText phrase. Search criterias are sent as query parameteres in the URL and if left empty, this view displays all resumes.
 
-### /resumes/{id}( showResume.html)
+/resumes/{id}( showResume.html)
 The view displays details of a resume selected in the searchResumes.html view.
 
 ## Some things left to do
 
 ### REST API
 Authorization/antentication (a person can create/edit their resumes, other can only view)
+
 Add Pagination support for resumes
+
 Add a picture property of persons.
+
 Add Person endpoints
 
 ### Browser
 Add views and controllers to Add/edit a resume
+
 Add Pagination in the search view.
+
 Make fancier
 
 
