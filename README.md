@@ -1,6 +1,6 @@
 # CVDB
 
-A project for consisting of two projects: a REST API for creating, updating and retrieving Resumes (CVs) and a client for consuming the API (a resume browser). I created this project during two weeks as a way of training in Spring and REST-ful APIs. 
+A REST API for creating, updating and retrieving Resumes (CVs) and a Resume browser as a simple client for consuming the API. I created this project during two weeks as a way of training in Spring and REST-ful APIs. 
 
 The project is using Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito. Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). Assertions are written in a BDD-style (given..when..then). The overall test coverage is about 80% (90% for the API).
 
