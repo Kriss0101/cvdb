@@ -1,6 +1,6 @@
 # CVDB
 
-A REST API for creating, updating and retrieving Resumes (CVs) and a Resume browser as a simple client for consuming the API. I created this project during two weeks as a way of training in Spring and REST-ful APIs. 
+A REST API for creating, updating and retrieving Resumes (CVs) and a Resume browser as a simple client for consuming the API. I created this project during two weeks as a way of training in Spring and REST APIs. 
 
 The project is using Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito. Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). Assertions are written in a BDD-style (given..when..then). The overall test coverage is about 80% (90% for the API).
 
@@ -54,7 +54,7 @@ The view displays details of a resume selected in the searchResumes.html view.
 ## Some things left to do
 
 ### REST API
-Authorization/antentication (a person can create/edit their resumes, other can only view)
+Authentication/authorization (a person can create/edit their resumes, other can only view)
 
 Add Pagination support for resumes
 
@@ -63,7 +63,7 @@ Add a picture property of persons.
 Add Person endpoints
 
 ### Browser
-Add views and controllers to Add/edit a resume
+Allow Add/edit resumes
 
 Add Pagination in the search view.
 
