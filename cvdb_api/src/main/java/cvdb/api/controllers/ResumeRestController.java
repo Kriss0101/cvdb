@@ -31,8 +31,6 @@ public class ResumeRestController {
         this.service = service; this.resumeMapper = resumeMapper;
     }
 
-
-
     @GetMapping("/{id}")
     public ResumeDTO getById(@PathVariable Long id) {
         Optional<Resume> ret = service.getById(id);
@@ -60,8 +58,7 @@ public class ResumeRestController {
 
     @GetMapping({"/",""})
     @ResponseStatus(HttpStatus.OK)
-    //public List<ResumeDTO> getResumesByCriteria(@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
-        public List<ResumeDTO> getResumesByCriteria(SearchCriteriaDTO criteria) { //@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
+    public List<ResumeDTO> getResumesByCriteria(SearchCriteriaDTO criteria) { //@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
 
         SearchCriteria searchCriteria = Mappers.getMapper(SearchCriteriaMapper.class).searchCriteriaDTOToSearchCriteria(criteria);
         if (searchCriteria.isEmpty()) {

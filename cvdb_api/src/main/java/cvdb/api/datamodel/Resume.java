@@ -27,15 +27,15 @@ public class Resume {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
-    private Set<Skill> skills = new HashSet();
+    private Set<Skill> skills = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
-    private Set<Assignment> assignments  = new HashSet();
+    private Set<Assignment> assignments  = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
-    private Set<Education> educations = new HashSet();
+    private Set<Education> educations = new HashSet<>();
 
 
 }
