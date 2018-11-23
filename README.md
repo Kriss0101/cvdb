@@ -2,7 +2,7 @@
 
 A REST API for creating, updating and retrieving Resumes (CVs) and a Resume browser as a simple client for consuming the API. I created this project during two weeks as a way of training in Spring and REST APIs. 
 
-The project is using Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito. Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). Assertions are written in a BDD-style (given..when..then). The overall test coverage is about 80% (90% for the API).
+The project is using Spring Boot using Spring MVC, Spring JPA and Thymeleaf. Other libraries used are Lombok, Mapstruct, AssertJ, Mockito. Test Driven Development using AssertJ, Mockito and Springs mock classes (e.g. MockMVC). The overall test coverage is about 80% (90% for the API).
 
 ## Database
 The database is currently a in-memory H2 database initialized with data at startup.
