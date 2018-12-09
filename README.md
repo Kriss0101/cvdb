@@ -11,7 +11,7 @@ Spring JPA with entities annotation with @Entity and interfaces extending CrudRe
 ## Data model
 The data model is (created in JDL-studio):
 
-[Data model diagram](https://github.com/kristofercode/cvdb/blob/master/datamodel.png)
+[Data model diagram](./datamodel.png)
 
 ## REST API
 
