@@ -1,8 +1,9 @@
 package cvdb.api.repositories;
 
+import cvdb.api.domain.Resume;
 import cvdb.api.repositories.PersonRepository;
 import cvdb.api.repositories.ResumeRepository;
-import cvdb.api.datamodel.Resume;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

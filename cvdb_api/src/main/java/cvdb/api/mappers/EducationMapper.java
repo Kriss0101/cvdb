@@ -2,7 +2,8 @@ package cvdb.api.mappers;
 
 
 import cvdb.api.commands.EducationDTO;
-import cvdb.api.datamodel.Education;
+import cvdb.api.domain.Education;
+
 import org.mapstruct.Mapper;
 
 @Mapper

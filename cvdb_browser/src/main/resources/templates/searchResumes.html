@@ -82,7 +82,7 @@
                 <div class="panel-heading">Results</div>
 
                 <div th:if="${#lists.isEmpty(resumes)}">
-                    Sorry, not resumes found matching the criteria.
+                    Sorry, no resumes was found matching the criteria.
                 </div>
                 <div class="panel-body" th:unless="${#lists.isEmpty(resumes)}">
                     <table class="table table-responsive table-striped table-bordered table-hover">

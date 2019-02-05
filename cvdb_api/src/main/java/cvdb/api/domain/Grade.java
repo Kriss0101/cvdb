@@ -1,4 +1,4 @@
-package cvdb.api.datamodel;
+package cvdb.api.domain;
 
 
 public enum Grade {

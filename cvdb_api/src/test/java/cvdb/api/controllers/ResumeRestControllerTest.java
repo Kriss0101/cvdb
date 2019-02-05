@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import cvdb.api.commands.ResumeDTO;
 import cvdb.api.commands.SearchCriteriaDTO;
-import cvdb.api.datamodel.*;
+import cvdb.api.domain.*;
 import cvdb.api.mappers.ResumeMapper;
 import cvdb.api.services.ResumeService;
 import org.junit.Before;

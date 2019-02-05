@@ -1,7 +1,7 @@
 package cvdb.api.services;
 
-import cvdb.api.datamodel.Person;
 import cvdb.api.repositories.PersonRepository;
+import cvdb.api.domain.Person;
 import cvdb.api.exceptions.UpdateResourceException;
 import org.springframework.stereotype.Service;
 

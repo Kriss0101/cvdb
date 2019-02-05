@@ -1,7 +1,8 @@
 package cvdb.api.mappers;
 
 import cvdb.api.commands.SearchCriteriaDTO;
-import cvdb.api.datamodel.SearchCriteria;
+import cvdb.api.domain.SearchCriteria;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;

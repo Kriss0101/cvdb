@@ -1,4 +1,4 @@
-package cvdb.api.datamodel;
+package cvdb.api.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

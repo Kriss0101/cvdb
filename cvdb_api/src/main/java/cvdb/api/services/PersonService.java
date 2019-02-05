@@ -1,9 +1,9 @@
 package cvdb.api.services;
 
-import cvdb.api.datamodel.Person;
-
 import java.util.List;
 import java.util.Optional;
+
+import cvdb.api.domain.Person;
 
 public interface PersonService {
 

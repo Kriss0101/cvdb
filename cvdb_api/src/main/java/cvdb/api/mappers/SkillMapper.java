@@ -2,8 +2,9 @@ package cvdb.api.mappers;
 
 
 import cvdb.api.commands.SkillDTO;
-import cvdb.api.datamodel.Grade;
-import cvdb.api.datamodel.Skill;
+import cvdb.api.domain.Grade;
+import cvdb.api.domain.Skill;
+
 import org.mapstruct.Mapper;
 
 @Mapper

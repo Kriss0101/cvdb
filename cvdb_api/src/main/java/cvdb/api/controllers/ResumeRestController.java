@@ -1,21 +1,30 @@
 package cvdb.api.controllers;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
+import org.mapstruct.factory.Mappers;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
 import cvdb.api.commands.ResumeDTO;
 import cvdb.api.commands.SearchCriteriaDTO;
-import cvdb.api.datamodel.Resume;
-import cvdb.api.datamodel.SearchCriteria;
+import cvdb.api.domain.Resume;
+import cvdb.api.domain.SearchCriteria;
 import cvdb.api.exceptions.ResourceNotFoundException;
 import cvdb.api.mappers.ResumeMapper;
 import cvdb.api.mappers.SearchCriteriaMapper;
 import cvdb.api.services.ResumeService;
-import org.mapstruct.factory.Mappers;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/resumes")
@@ -58,8 +67,7 @@ public class ResumeRestController {
 
     @GetMapping({"/",""})
     @ResponseStatus(HttpStatus.OK)
-    public List<ResumeDTO> getResumesByCriteria(SearchCriteriaDTO criteria) { //@Valid @RequestParam(value = "firstName",required = false) String firstName, @RequestParam(value="lastName",required = false) String lastName, @RequestParam(value="freeText",required = false) String freeText) {
-
+	public List<ResumeDTO> getResumesByCriteria(SearchCriteriaDTO criteria) {
         SearchCriteria searchCriteria = Mappers.getMapper(SearchCriteriaMapper.class).searchCriteriaDTOToSearchCriteria(criteria);
         if (searchCriteria.isEmpty()) {
             return getAllResumes();

@@ -1,7 +1,8 @@
 package cvdb.api.mappers;
 
 import cvdb.api.commands.ContactDTO;
-import cvdb.api.datamodel.Contact;
+import cvdb.api.domain.Contact;
+
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 

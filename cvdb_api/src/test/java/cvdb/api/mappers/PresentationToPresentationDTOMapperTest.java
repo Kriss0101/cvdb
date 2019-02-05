@@ -2,7 +2,7 @@ package cvdb.api.mappers;
 
 import cvdb.api.mappers.PresentationMapper;
 import cvdb.api.commands.PresentationDTO;
-import cvdb.api.datamodel.Presentation;
+import cvdb.api.domain.Presentation;
 
 import org.junit.Before;
 import org.junit.Test;

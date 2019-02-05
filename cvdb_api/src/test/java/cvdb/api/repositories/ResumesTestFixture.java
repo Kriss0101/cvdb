@@ -1,8 +1,8 @@
 package cvdb.api.repositories;
 
+import cvdb.api.domain.*;
 import cvdb.api.repositories.PersonRepository;
 import cvdb.api.repositories.ResumeRepository;
-import cvdb.api.datamodel.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

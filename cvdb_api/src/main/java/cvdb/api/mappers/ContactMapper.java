@@ -2,7 +2,8 @@ package cvdb.api.mappers;
 
 
 import cvdb.api.commands.ContactDTO;
-import cvdb.api.datamodel.Contact;
+import cvdb.api.domain.Contact;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 

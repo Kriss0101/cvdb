@@ -2,7 +2,7 @@ package cvdb;
 
 import java.util.Set;
 
-import cvdb.api.datamodel.*;
+import cvdb.api.domain.*;
 import cvdb.api.repositories.PersonRepository;
 import cvdb.api.repositories.ResumeRepository;
 import cvdb.api.util.CollectionUtil;

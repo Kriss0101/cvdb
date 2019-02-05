@@ -2,9 +2,9 @@ package cvdb.api.services;
 
 import cvdb.api.services.ResumeService;
 import cvdb.api.services.ResumeServiceImpl;
-import cvdb.api.datamodel.*;
+import cvdb.api.domain.*;
 import cvdb.api.repositories.ResumeRepository;
-import cvdb.api.datamodel.Person;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

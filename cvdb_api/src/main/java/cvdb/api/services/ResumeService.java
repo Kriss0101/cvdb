@@ -1,10 +1,10 @@
 package cvdb.api.services;
 
-import cvdb.api.datamodel.Resume;
-import cvdb.api.datamodel.SearchCriteria;
-
 import java.util.List;
 import java.util.Optional;
+
+import cvdb.api.domain.Resume;
+import cvdb.api.domain.SearchCriteria;
 
 public interface ResumeService {
 

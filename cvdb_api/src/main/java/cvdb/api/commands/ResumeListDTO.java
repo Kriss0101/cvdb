@@ -1,9 +1,10 @@
 package cvdb.api.commands;
 
-import cvdb.api.datamodel.Resume;
 import lombok.Data;
 
 import java.util.List;
+
+import cvdb.api.domain.Resume;
 
 @Data
 public class ResumeListDTO {

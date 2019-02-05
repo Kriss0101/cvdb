@@ -3,12 +3,12 @@ package cvdb.api.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import cvdb.api.controllers.PersonRestController;
+import cvdb.api.domain.Contact;
+import cvdb.api.domain.Person;
 import cvdb.api.commands.PersonDTO;
-import cvdb.api.datamodel.Contact;
-import cvdb.api.datamodel.Person;
 import cvdb.api.services.PersonService;
 import cvdb.api.commands.PersonDTO;
-import cvdb.api.datamodel.Person;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

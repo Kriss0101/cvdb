@@ -1,7 +1,8 @@
 package cvdb.api.repositories;
 
-import cvdb.api.datamodel.Person;
 import org.springframework.data.repository.CrudRepository;
+
+import cvdb.api.domain.Person;
 
 public interface PersonRepository extends CrudRepository<Person,Long>{
 

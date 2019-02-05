@@ -1,7 +1,8 @@
 package cvdb.api.mappers;
 
 import cvdb.api.commands.PresentationDTO;
-import cvdb.api.datamodel.Presentation;
+import cvdb.api.domain.Presentation;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 

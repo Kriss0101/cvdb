@@ -4,7 +4,7 @@ import cvdb.api.mappers.EducationMapper;
 import cvdb.api.mappers.PersonMapper;
 import cvdb.api.mappers.ResumeMapper;
 import cvdb.api.commands.ResumeDTO;
-import cvdb.api.datamodel.*;
+import cvdb.api.domain.*;
 
 import org.junit.Before;
 import org.junit.Ignore;

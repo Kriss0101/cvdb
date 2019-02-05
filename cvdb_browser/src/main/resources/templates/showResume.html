@@ -15,11 +15,11 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	<!-- integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<!-- integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	 crossorigin="anonymous"
 	-->
-	
+
 
 <!-- Latest compiled and minified JavaScript -->
 <!--
@@ -53,7 +53,6 @@ label.field-value {
 	font-weight: normal;
 }
 
-
 .section {
 	clear: both;
 	padding: 5px;
@@ -62,14 +61,14 @@ label.field-value {
 .section p {
 	clear: both;
 }
+
 .section.content {
-margin-left:30px;
-
+	margin-left: 30px;
 }
+
 .section.content td {
-width:150px
+	width: 150px
 }
-
 
 .backlink {
 	float: left;
@@ -85,14 +84,14 @@ width:150px
 <body>
 
 
-	<div name=MAIN_CONTAINER class="container h-100">
-		<div name=MAIN_ROW class="row">
+	<div title=MAIN_CONTAINER class="container h-100">
+		<div title=MAIN_ROW class="row">
 			<div class="col-md-6 col-md-offset-3"></div>
 			<div class="panel panel-default">
 				<div class="panel-heading title" th:object="${resume}"
 					th:text="*{'Resume for ' + person.firstName + ' ' + person.lastName}">
 					Resume for N N <a href="back" class="backlink"
-						th:href="/resumes/search"><< Back</a>
+						th:href="/resumes/search">&lt;&lt;Back</a>
 				</div>
 				<div class="panel-body">
 					<th:block th:object="${resume}">
@@ -103,100 +102,105 @@ width:150px
 
 							<label class="subheader">Contact</label>
 							<div class="section content">
-							<p>
-								<label class="field-name">Name: </label> <label
-									class="field-value"
-									th:text="${resume.person.firstName + ' ' + resume.person.lastName}">name
-									namesson</label>
-							</p>
-							
-							<p>
-								<label class="field-name">Adress: </label> <label
-									class="field-value" th:text="${resume.person.contact.adress}">adress
-									here</label>
-							</p>
-							
+								<p>
+									<label class="field-name">Name: </label> <label
+										class="field-value"
+										th:text="${resume.person.firstName + ' ' + resume.person.lastName}">name
+										namesson</label>
+								</p>
 
-							<p>
-								<label class="field-name">Phone: </label> <label
-									class="field-value" th:text="${resume.person.contact.phone}">123-3333</label>
-							</p>
+								<p>
+									<label class="field-name">Adress: </label> <label
+										class="field-value" th:text="${resume.person.contact.adress}">adress
+										here</label>
+								</p>
+
+
+								<p>
+									<label class="field-name">Phone: </label> <label
+										class="field-value" th:text="${resume.person.contact.phone}">123-3333</label>
+								</p>
 							</div>
 						</div>
 
 
 						<div class="section" id="Presentation_Section"
 							th:object="${resume.presentation}">
-						
+
 							<label class="subheader">Presentation</label>
-						<div class="section content">
-								
-									<label th:text="*{shortDescription}" />
-									<p th:text="*{longDescription}"/>
-									
-							
-</div>
+							<div class="section content">
+
+								<label th:text="*{shortDescription}" ></label>
+								<p th:text="*{longDescription}" />
+
+
+							</div>
 						</div>
 
 
-<div class="section" id="Assignment_Section">
-						
+						<div class="section" id="Assignment_Section">
+
 							<label class="subheader">Assignments</label>
-<table class="section content">
-	<thead><td>Time period</td><td>Company</td><td>Title</td><td>Description</td></thead>
-<tr th:each="assignment, iterStat : *{assignments}">
-											<td><label th:text="${assignment.fromYear}" />-<label
-												th:text="${assignment.toYear}" /></td>
-												<td>
-												<label th:text="${assignment.employer}"></label>
-												</td>
-                                   <td> <label th:text="${assignment.shortDescription}"/>
-                                </td>
-										<td>			<label th:text="${assignment.longDescription}" />
-								</td>
-										
-	</tr>
-	
-</table>
-</div>
+							<table class="section content">
+								<thead>
+								<tr>
+									<td>Time period</td>
+									<td>Company</td>
+									<td>Title</td>
+									<td>Description</td>
+							</tr>
+								</thead>
+								<tr th:each="assignment, iterStat : *{assignments}">
+									<td><label th:text="${assignment.fromYear}" ></label>-<label
+										th:text="${assignment.toYear}" ></label></td>
+									<td><label th:text="${assignment.employer}"></label></td>
+									<td><label th:text="${assignment.shortDescription}" ></label></td>
+									<td><label th:text="${assignment.longDescription}" ></label></td>
 
-<div class="section" id="Education_Section">
-						
-							<label class="subheader">Education</label>
-<table class="section content">
-	<thead><td>Time period</td><td>School</td><td>Description</td></thead>
-								<tr th:each="edu, iterStat : *{educations}">
-											<td><label th:text="${edu.fromYear}" />-<label
-												th:text="${edu.toYear}" />
-										
-                                </td>
-                                <td>		 <label >Univ. corp.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-									
-											<td>
-												
-													<label th:text="${edu.description}" />
-																							</td>
-										</tr>
+								</tr>
 
-									</table>
-									</tr>
 							</table>
 						</div>
-						<div class="content">
-						<label class="subheader">Skills</label>
 
-<table class="section content"><thead><td>Skill</td><td>Level</td></thead>
-							<tr th:each="skill : *{skills}">
+						<div class="section" id="Education_Section">
+
+							<label class="subheader">Education</label>
+							<table class="section content">
+								<thead>
+								<tr>
+									<td>Time period</td>
+									<td>School</td>
+									<td>Description</td>
+								</tr>
+								</thead>
+								<tr th:each="edu, iterStat : *{educations}">
+									<td><label th:text="${edu.fromYear}" ></label>-<label
+										th:text="${edu.toYear}" ></label></td>
+									<td><label>Univ. corp.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+
+									<td><label th:text="${edu.description}" ></label></td>
+								</tr>
+
+							</table>
 						
-							<td><label 
-								th:text="${skill.description}" />
-								</td><td>
-								<label class="skill-grade" th:text="${skill.grade}"/>
-                        </td>
-                        </tr>
-                        </table>
-                					</th:block>
+						</div>
+						<div class="content">
+							<label class="subheader">Skills</label>
+
+							<table class="section content">
+								<thead><tr>
+									<td>Skill</td>
+									<td>Level</td>
+								</tr>
+								</thead>
+								<tr th:each="skill : *{skills}">
+									<td><label th:text="${skill.description}" ></label></td>
+									<td><label class="skill-grade" th:text="${skill.grade}" ></label>
+									</td>
+								</tr>								
+							</table></div>					
+					</th:block>
 				</div>
 			</div>
 		</div>

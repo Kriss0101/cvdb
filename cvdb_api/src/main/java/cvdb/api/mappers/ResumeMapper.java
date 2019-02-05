@@ -1,7 +1,8 @@
 package cvdb.api.mappers;
 
 import cvdb.api.commands.ResumeDTO;
-import cvdb.api.datamodel.Resume;
+import cvdb.api.domain.Resume;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 

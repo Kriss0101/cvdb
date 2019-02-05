@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Show resume</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<!-- integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	 crossorigin="anonymous"
+	-->
+
+
+<!-- Latest compiled and minified JavaScript -->
+<!--
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    -->
+
+<style>
+.subheader {
+	font-size: 26px;
+}
+
+.submitbutton {
+	float: right;
+}
+
+ul.itemlist {
+	list-style-type: none;
+}
+
+label.field-name {
+	text-align: left;
+	width: 100px;
+	float: left;
+	font-weight: bold;
+}
+
+label.field-value {
+	text-align: left;
+	width: 100px;
+	float: left;
+	font-weight: normal;
+border:1px;
+border-color: black;
+}
+
+.section {
+	clear: both;
+	padding: 5px;
+}
+
+.section p {
+	clear: both;
+}
+
+.section.content {
+	margin-left: 30px;
+}
+
+.section.content td {
+	width: 150px
+}
+
+.backlink {
+	float: left;
+	width: 100px;
+}
+
+.panel-heading .title {
+	float: right;
+}
+</style>
+
+</head>
+<body>
+
+
+	<div title=MAIN_CONTAINER class="container h-100">
+		<div title=MAIN_ROW class="row">
+			<div class="col-md-6 col-md-offset-3"></div>
+			<div class="panel panel-default">
+				<div class="panel-heading title" th:object="${resume}"
+					th:text="*{'Resume for ' + person.firstName + ' ' + person.lastName}">
+					Resume for N N <a href="back" class="backlink"
+						th:href="/resumes/search">&lt;&lt;Back</a>
+				</div>
+				<form:form method="POST">
+					<div class="panel-body">
+						<th:block th:object="${resume}">
+							<input type="hidden" th:field="*{id}" />
+
+							<div class="section" id="Contact_Section"
+								th:object="${resume.person.contact}">
+
+								<label class="subheader">Contact</label>
+								<div class="section content">
+									<p>
+										<label class="field-name">FirstName:</label><br>
+										<form:input class="field-value" name="firstName"
+											th:text="${resume.person.firstName}"></form:input>
+											
+										<label class="field-name">LastName: </label>
+										<form:input class="field-value" name="lastName"
+											th:text="${resume.person.lastName}"></form:input>
+									</p>
+
+									
+										<label class="field-name">Adress:</label><br>
+										<form:input class="field-value" name="adress"
+										
+											th:text="${resume.person.contact.sadress}"></form:input>
+																<label class="field-name">Phone:</label><br>
+											<form:input class="field-value" name="phone"
+											th:text="${resume.person.contact.phone}"></form:input>
+								</div>
+							</div>
+
+
+							<div class="section" id="Presentation_Section"
+								th:object="${resume.presentation}">
+
+								<label class="subheader">Presentation</label>
+								<div class="section content">
+
+									<label>Title</label>
+									<form:input th:text="*{shortDescription}">Short presentation</form:input>
+									<br> <label>Presentation</label>
+									<form:input th:text="*{longDescription}">Long presentation</form:input>
+
+
+								</div>
+							</div>
+
+
+							<div class="section" id="Assignment_Section">
+
+								<label class="subheader">Assignments</label>
+								<table class="section content">
+									<thead>
+										<tr>
+											<td>Time period</td>
+											<td>Company</td>
+											<td>Title</td>
+											<td>Description</td>
+											<td></td>
+										</tr>
+									</thead>
+									<tr th:each="assignment, iterStat : *{assignments}">
+										<td><label th:text="${assignment.fromYear}"></label>-<label
+											th:text="${assignment.toYear}"></label></td>
+										<td><label th:text="${assignment.employer}"></label></td>
+										<td><label th:text="${assignment.shortDescription}"></label></td>
+										<td><label th:text="${assignment.longDescription}"></label></td>
+										<td><button>Delete</button></td>
+									</tr>
+									<tr>
+										<td><label th:text="from year"></label>-<label
+											th:text="to year"></label></td>
+										<td><label th:text="employer"></label></td>
+										<td><label th:text="short description"></label></td>
+										<td><label th:text="long description"></label></td>
+										<td><button>Add</button></td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="section" id="Education_Section">
+
+								<label class="subheader">Education</label>
+								<table class="section content">
+									<thead>
+										<tr>
+											<td>Time period</td>
+											<td>School</td>
+											<td>Description</td>
+										</tr>
+									</thead>
+									<tr th:each="edu, iterStat : *{educations}">
+										<td><label th:text="${edu.fromYear}"></label>-<label
+											th:text="${edu.toYear}"></label></td>
+										<td><label>Univ. corp.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</td>
+
+										<td><label th:text="${edu.description}"></label></td>
+									</tr>
+
+								</table>
+
+							</div>
+							<div class="content">
+								<label class="subheader">Skills</label>
+
+								<table class="section content">
+									<thead>
+										<tr>
+											<td>Skill</td>
+											<td>Level</td>
+										</tr>
+									</thead>
+									<tr th:each="skill : *{skills}">
+										<td><label th:text="${skill.description}"></label></td>
+										<td><label class="skill-grade" th:text="${skill.grade}"></label>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</th:block>
+					</div>
+				</form:form>
+			</div>
+
+		</div>
+	</div>
+
+
+
+</body>

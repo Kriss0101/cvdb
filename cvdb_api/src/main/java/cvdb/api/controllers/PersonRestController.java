@@ -1,6 +1,6 @@
 package cvdb.api.controllers;
 
-import cvdb.api.datamodel.Person;
+import cvdb.api.domain.Person;
 import cvdb.api.exceptions.ResourceNotFoundException;
 import cvdb.api.services.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;

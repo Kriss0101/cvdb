@@ -1,22 +1,17 @@
 package cvdb.api.services;
 
-import cvdb.api.datamodel.Assignment;
-import cvdb.api.datamodel.Resume;
-import cvdb.api.datamodel.SearchCriteria;
-import cvdb.api.exceptions.ResourceAlreadyExistException;
-import cvdb.api.exceptions.UpdateResourceException;
-import cvdb.api.repositories.ResumeRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import org.assertj.core.util.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.TreeSet;
+import cvdb.api.domain.Resume;
+import cvdb.api.domain.SearchCriteria;
+import cvdb.api.exceptions.ResourceAlreadyExistException;
+import cvdb.api.exceptions.UpdateResourceException;
+import cvdb.api.repositories.ResumeRepository;
 
 @Service
 public class ResumeServiceImpl implements ResumeService {

@@ -2,10 +2,10 @@ package cvdb.api.services;
 
 import cvdb.api.services.PersonService;
 import cvdb.api.services.PersonServiceImpl;
-import cvdb.api.datamodel.Contact;
-import cvdb.api.datamodel.Person;
+import cvdb.api.domain.Contact;
+import cvdb.api.domain.Person;
 import cvdb.api.repositories.PersonRepository;
-import cvdb.api.datamodel.Person;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -4,7 +4,8 @@ package cvdb.api.mappers;
 
 
 import cvdb.api.commands.PersonDTO;
-import cvdb.api.datamodel.Person;
+import cvdb.api.domain.Person;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 

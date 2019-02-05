@@ -2,6 +2,8 @@ package cvdb.api.datamodel;
 
 import org.junit.Test;
 
+import cvdb.api.domain.SearchCriteria;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchCriteriaTest {
