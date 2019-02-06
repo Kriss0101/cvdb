@@ -28,7 +28,7 @@
             font-size: 20px;
         }
         label.field {
-            text-align: right;
+            text-align: left;
             width: 100px;
             float: left;
             font-weight: bold;
@@ -61,7 +61,7 @@
                 <div class="panel-heading">Search resumes</div>
                 <form method="get" action="/resumes/search">
                     <fieldset>
-                        <legend>Search criteria</legend>
+                       <!-- <legend>Search criteria</legend>-->
                         <p><label class="field">First name:</label> <input name="firstName"
                                                                            th:value="${param.firstName}"
                                                                            type="input-textbox-300"/></p>

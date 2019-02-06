@@ -48,7 +48,7 @@ label.field-name {
 
 label.field-value {
 	text-align: left;
-	width: 100px;
+	width: 200px;
 	float: left;
 	font-weight: normal;
 }
@@ -87,7 +87,7 @@ label.field-value {
 	<div title=MAIN_CONTAINER class="container h-100">
 		<div title=MAIN_ROW class="row">
 			<div class="col-md-6 col-md-offset-3"></div>
-			<div class="panel panel-default">
+			<div class="panel panel-default"><a href=".." ><< Back</a>
 				<div class="panel-heading title" th:object="${resume}"
 					th:text="*{'Resume for ' + person.firstName + ' ' + person.lastName}">
 					Resume for N N <a href="back" class="backlink"
@@ -130,7 +130,7 @@ label.field-value {
 							<label class="subheader">Presentation</label>
 							<div class="section content">
 
-								<label th:text="*{shortDescription}" ></label>
+								<label th:text="*{shortDescription}"></label>
 								<p th:text="*{longDescription}" />
 
 
@@ -143,19 +143,19 @@ label.field-value {
 							<label class="subheader">Assignments</label>
 							<table class="section content">
 								<thead>
-								<tr>
-									<td>Time period</td>
-									<td>Company</td>
-									<td>Title</td>
-									<td>Description</td>
-							</tr>
+									<tr>
+										<td><label>Time period</label></td>
+										<td><label>Company</label></td>
+										<td><label>Title</label></td>
+										<td><label>Description</label></td>
+									</tr>
 								</thead>
 								<tr th:each="assignment, iterStat : *{assignments}">
-									<td><label th:text="${assignment.fromYear}" ></label>-<label
-										th:text="${assignment.toYear}" ></label></td>
-									<td><label th:text="${assignment.employer}"></label></td>
-									<td><label th:text="${assignment.shortDescription}" ></label></td>
-									<td><label th:text="${assignment.longDescription}" ></label></td>
+									<td><label  class="field-value" th:text="${assignment.fromYear + ' - '+  
+										 assignment.toYear}"></label></td>
+									<td><label class="field-value" th:text="${assignment.employer}"></label></td>
+									<td><label class="field-value" th:text="${assignment.shortDescription}"></label></td>
+									<td><label class="field-value" th:text="${assignment.longDescription}"></label></td>
 
 								</tr>
 
@@ -167,39 +167,40 @@ label.field-value {
 							<label class="subheader">Education</label>
 							<table class="section content">
 								<thead>
-								<tr>
-									<td>Time period</td>
-									<td>School</td>
-									<td>Description</td>
-								</tr>
+									<tr>
+										<td><label>Time period</label></td>
+										<td><label>School</label></td>
+										<td><label>Description</label></td>
+									</tr>
 								</thead>
 								<tr th:each="edu, iterStat : *{educations}">
-									<td><label th:text="${edu.fromYear}" ></label>-<label
-										th:text="${edu.toYear}" ></label></td>
-									<td><label>Univ. corp.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<td><label class="field-value" th:text="${edu.fromYear + ' - ' + edu.toYear}"></label></td>
+									<td><label class="field-value">Univ. corp.</label>
 									</td>
 
-									<td><label th:text="${edu.description}" ></label></td>
+									<td><label class="field-value" th:text="${edu.description}"></label></td>
 								</tr>
 
 							</table>
-						
+
 						</div>
 						<div class="content">
 							<label class="subheader">Skills</label>
 
 							<table class="section content">
-								<thead><tr>
-									<td>Skill</td>
-									<td>Level</td>
-								</tr>
+								<thead>
+									<tr>
+										<td><label>Skill</label></td>
+										<td><label>Level</label></td>
+									</tr>
 								</thead>
 								<tr th:each="skill : *{skills}">
-									<td><label th:text="${skill.description}" ></label></td>
-									<td><label class="skill-grade" th:text="${skill.grade}" ></label>
+									<td><label class="field-value" th:text="${skill.description}"></label></td>
+									<td><label class="field-value" th:text="${skill.grade}"></label>
 									</td>
-								</tr>								
-							</table></div>					
+								</tr>
+							</table>
+						</div>
 					</th:block>
 				</div>
 			</div>
