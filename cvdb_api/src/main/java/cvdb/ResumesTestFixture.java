@@ -2,6 +2,10 @@ package cvdb;
 
 import java.util.Set;
 
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import cvdb.api.domain.*;
 import cvdb.api.repositories.PersonRepository;
 import cvdb.api.repositories.ResumeRepository;
@@ -10,98 +14,158 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Test data set. Quite small for sake of first implementation.
+ * 
  * @author Kristofer
  *
  */
 @Slf4j
+@EnableTransactionManagement
 public class ResumesTestFixture {
 
-    private final ResumeRepository resumeRepository;
-    private final PersonRepository personRepository;
+	private final ResumeRepository resumeRepository;
+	private final PersonRepository personRepository;
 
-    public ResumesTestFixture(ResumeRepository resumeRepository, PersonRepository personRepository) {
-        this.resumeRepository = resumeRepository;
-        this.personRepository = personRepository;
-    }
+	public ResumesTestFixture(ResumeRepository resumeRepository, PersonRepository personRepository) {
+		this.resumeRepository = resumeRepository;
+		this.personRepository = personRepository;
+	}
 
-    public  void storeResumeTestData() {
+	@Transactional
+	public void storeResumeTestData() {
 
-        storeResumesPerson1();
-        storeResumesPerson2();
+		storeResumesPerson1();
+		storeResumesPerson2();
+		storeResumesPerson3();
 
-        verifyData();
-    }
-    private  void storeResumesPerson1() {
-        // Pelle
-        Person pelle = Person.builder().firstName("Pelle").lastName("Persson").contact(Contact.builder().adress("vägen 1").email("asdf@asdf").phone("999").build()).build();
-        personRepository.save(pelle);
-        Set<Education> pellesEducations = CollectionUtil.asLinkedHashSet(
-                Education.builder().fromYear(1990).toYear(1999).description("javakurs").build(),
-                Education.builder().fromYear(2000).toYear(2010).description("c++ in action").build()
-        );
+		outputResumes();
+	}
 
-        Set<Assignment> pellesAssignments = CollectionUtil.asLinkedHashSet(
-                Assignment.builder().shortDescription("Matematiker").longDescription("gjorde beräkningar på balkar").fromYear(1970).toYear(1977).employer("Volvo").build(),
-                Assignment.builder().shortDescription("programmerare").longDescription("gjorde en hemsida").fromYear(1990).toYear(2000).employer("webproffsen").build()
-        );
-        Presentation pellesPresentation = new Presentation("Briljant programmerare", "Mycket trevlig programmerare");
-        Set<Skill> pellesSkills = CollectionUtil.asLinkedHashSet(
-                new Skill("Java", Grade.AUTHORITY),
-                new Skill("Koka kaffe", Grade.EXPERIENCED)
-        );
-        Resume pelleResume1 = Resume.builder().title("Pelles första CV").person(pelle).educations(pellesEducations).presentation(pellesPresentation).skills(pellesSkills).assignments(pellesAssignments).build();
+	public void storeResumesPerson1() {
 
+		// Person 1
+		Person pelle = Person.builder().firstName("Nils").lastName("Karlsson").contact(
+				Contact.builder().adress("Vägen 1").email("nils.karlsson@hotmail.com").phone("999888777").build())
+				.build();
 
-        resumeRepository.save(pelleResume1);
+		personRepository.save(pelle);
 
-        // Second resume
-        Set<Education> pellesEducations2 = CollectionUtil.asLinkedHashSet(
-                Education.builder().fromYear(1990).toYear(1999).description("javakurs2").build(),
-                Education.builder().fromYear(2000).toYear(2010).description("c++ in action2").build()
-        );
+		saveResume1(pelle);
 
-        Set<Assignment> pellesAssignments2 = CollectionUtil.asLinkedHashSet(
-                Assignment.builder().shortDescription("Matematiker2").longDescription("gjorde beräkningar på balkar2").fromYear(1970).toYear(1977).employer("Volvo2").build(),
-                Assignment.builder().shortDescription("programmerare2").longDescription("gjorde en hemsida2").fromYear(1990).toYear(2000).employer("webproffsen2").build()
-        );
-        Presentation pellesPresentation2 = new Presentation("Briljant programmerare2", "Mycket trevlig programmerare2");
-        Set<Skill> pellesSkills2 = CollectionUtil.asLinkedHashSet(
-                new Skill("Java", Grade.AUTHORITY),
-                new Skill("Koka kaffe", Grade.EXPERIENCED)
-        );
+		saveResume2(pelle);
 
-        Resume pelleResume2 = Resume.builder().title("Pelles andra CV").person(pelle).educations(pellesEducations2).presentation(pellesPresentation2).skills(pellesSkills2).assignments(pellesAssignments2).build();
+	}
 
-        resumeRepository.save(pelleResume2);
+	private void saveResume2(Person pelle) {
+		Set<Assignment> pellesAssignments2 = CollectionUtil.asLinkedHashSet(
+				Assignment.builder().shortDescription("Java developer").longDescription("Build a website")
+						.fromYear(1990).toYear(2000).employer("The Web bros").build(),
+				Assignment.builder().shortDescription("C++ developer")
+						.longDescription("Developed algorithms for a robot").fromYear(2001).toYear(2006)
+						.employer("NASA").build());
 
+		// His resumes
+		Set<Education> pellesEducations = CollectionUtil.asLinkedHashSet(
+				Education.builder().fromYear(1990).toYear(1999).description("Java intermediate course").build(),
+				Education.builder().fromYear(2000).toYear(2010).description("c++ in action").build());
 
-    }
+		Presentation pellesPresentation2 = new Presentation("Brilliant programmer",
+				"I'm a very skilled developer and likes to work in advanced domains. I also like coffee.");
+		Set<Skill> pellesSkills2 = CollectionUtil.asLinkedHashSet(new Skill("Java", Grade.EXPERIENCED),
+				new Skill("C++", Grade.EXPERIENCED), new Skill("Drink coffee", Grade.AUTHORITY));
 
-    private  void verifyData() {
-        Iterable<Resume> found = resumeRepository.findAll();
-        found.forEach(e->log.info(e.toString()));
+		Resume pelleResume2 = Resume.builder().title("Proffessional coder").person(pelle).educations(pellesEducations)
+				.presentation(pellesPresentation2).skills(pellesSkills2).assignments(pellesAssignments2).build();
 
-    }
-    private  void storeResumesPerson2() {
-        // Kalle
-        Person kalle = Person.builder().firstName("Kalle").lastName("Persson").contact(Contact.builder().phone("999").build()).build();
-        personRepository.save(kalle);
+		resumeRepository.save(pelleResume2);
+	}
 
-        Set<Education> kallesEducations = CollectionUtil.asLinkedHashSet(
-                Education.builder().fromYear(1990).toYear(1999).description("matlagningkurs").build(),
-                Education.builder().fromYear(2000).toYear(2010).description("bakade bullar").build()
-        );
-        Set<Assignment> kallesAssignments = CollectionUtil.asLinkedHashSet(
-                Assignment.builder().shortDescription("Kock").longDescription("Lagade mat").fromYear(1970).toYear(1977).employer("Brittas").build(),
-                Assignment.builder().shortDescription("Bagare").longDescription("bakade bullar").fromYear(1990).toYear(2000).employer("Annas kafe").build()
-        );
-        Presentation kallesPresentation = new Presentation("trevlig kock", "Mycket bra kock");
-        Set<Skill> kallesSkills = CollectionUtil.asLinkedHashSet(
-                new Skill("Java", Grade.AUTHORITY),
-                new Skill("Moccha", Grade.EXPERIENCED)
-        );
-        Resume kallesResume1 = Resume.builder().title("Kalles CV").person(kalle).educations(kallesEducations).presentation(kallesPresentation).skills(kallesSkills).assignments(kallesAssignments).build();
+	private void saveResume1(Person pelle) {
+		Set<Assignment> pellesAssignments = CollectionUtil.asLinkedHashSet(
+				Assignment.builder().shortDescription("Applied mathematician")
+						.longDescription("Optimized a system for an autonomous vehicle").fromYear(2014).toYear(2016)
+						.employer("Volvo").build(),
+				Assignment.builder().shortDescription("Researcher")
+						.longDescription("Did research in computational statistics").fromYear(2017).toYear(2018)
+						.employer("Karolinska Institutet").build());
 
-        resumeRepository.save(kallesResume1);
-    }
+		// His resumes
+		Set<Education> pellesEducations = CollectionUtil.asLinkedHashSet(
+				Education.builder().fromYear(1990).toYear(1999).description("Java intermediate course").build(),
+				Education.builder().fromYear(2000).toYear(2010).description("c++ in action").build());
+
+		Presentation pellesPresentation = new Presentation("Brilliant mathematician",
+				"I like to solve your problems, please hire me.");
+		Set<Skill> pellesSkills = CollectionUtil.asLinkedHashSet(new Skill("Java", Grade.AUTHORITY),
+				new Skill("C++", Grade.EXPERIENCED), new Skill("Computational Statistics", Grade.EXPERIENCED));
+		Resume pelleResume1 = Resume.builder().title("Mathematician").person(pelle).educations(pellesEducations)
+				.presentation(pellesPresentation).skills(pellesSkills).assignments(pellesAssignments).build();
+		resumeRepository.save(pelleResume1);
+	}
+
+	private void storeResumesPerson2() {
+
+		// Person
+		Person kalle = Person.builder().firstName("Kalle").lastName("Kodare")
+				.contact(Contact.builder().phone("999111222").build()).build();
+		personRepository.save(kalle);
+
+		// His resumes
+		Set<Education> kallesEducations = CollectionUtil.asLinkedHashSet(
+				Education.builder().fromYear(2001).toYear(2005).description("Elektroteknik på KTH").build(),
+				Education.builder().fromYear(2016).toYear(2018).description("Microservices").build());
+		Set<Assignment> kallesAssignments = CollectionUtil.asLinkedHashSet(
+				Assignment.builder().shortDescription("Webdeveloper").longDescription("I build a website.")
+						.fromYear(2010).toYear(2015).employer("The web bros").build(),
+				Assignment.builder().shortDescription("Java developer").longDescription(
+						"I rebuild their monolithic system into microservice architecture. Now it runs smooth :)")
+						.fromYear(2018).toYear(2018).employer("Mono systems AB").build());
+		Presentation kallesPresentation = new Presentation("Microservice Professional",
+				"Consultant with great knowledge in Domain Driven Design, TDD and experience in devloping Microservices");
+		Set<Skill> kallesSkills = CollectionUtil.asLinkedHashSet(new Skill("Java SE 8", Grade.AUTHORITY),
+				new Skill("Spring Boot 2", Grade.AUTHORITY), new Skill("Spring Framework 5", Grade.AUTHORITY),
+				new Skill("DevOps", Grade.EXPERIENCED), new Skill("Scrum", Grade.AUTHORITY),
+				new Skill("DDD", Grade.AUTHORITY)
+
+		);
+		Resume resume1 = Resume.builder().title("Senior developer with great charisma").person(kalle)
+				.educations(kallesEducations).presentation(kallesPresentation).skills(kallesSkills)
+				.assignments(kallesAssignments).build();
+
+		resumeRepository.save(resume1);
+	}
+
+	private void storeResumesPerson3() {
+
+		// Person
+		Person kalle = Person.builder().firstName("Jens").lastName("Joder")
+				.contact(Contact.builder().phone("999111111").build()).build();
+		personRepository.save(kalle);
+
+		// His resumes
+		Set<Education> kallesEducations = CollectionUtil
+				.asLinkedHashSet(Education.builder().fromYear(2001).toYear(2005).description("Datateknik").build()
+
+		);
+		Set<Assignment> kallesAssignments = CollectionUtil.asLinkedHashSet(Assignment.builder()
+				.shortDescription("C programmer").longDescription("I programmed their telecom system.").fromYear(1980)
+				.toYear(2015).employer("Telekom AB").build()
+
+		);
+		Presentation kallesPresentation = new Presentation("C programmer",
+				"I'm a great programmer looking for new exciting assignments.");
+		Set<Skill> kallesSkills = CollectionUtil.asLinkedHashSet(new Skill("C", Grade.AUTHORITY),
+				new Skill("Bug Driven Development", Grade.AUTHORITY)
+
+		);
+		Resume resume1 = Resume.builder().title("C programmer").person(kalle).educations(kallesEducations)
+				.presentation(kallesPresentation).skills(kallesSkills).assignments(kallesAssignments).build();
+
+		resumeRepository.save(resume1);
+	}
+
+	private void outputResumes() {
+		Iterable<Resume> found = resumeRepository.findAll();
+		found.forEach(e -> log.info(e.toString()));
+
+	}
 }

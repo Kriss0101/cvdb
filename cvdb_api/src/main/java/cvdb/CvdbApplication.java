@@ -24,6 +24,8 @@ public class CvdbApplication {
 	public ResumeMapper getResumeMapper() {
 		return Mappers.getMapper(ResumeMapper.class);
 	}
+	
+	
 
 
 }
