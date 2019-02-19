@@ -3,20 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>cvdb</groupId>
-	<artifactId>cvbrowser</artifactId>
+	<artifactId>cvdb-browser</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>cvbrowser</name>
+	<parent>
+		<groupId>com.kristofer.cvdb</groupId>
+		<artifactId>simple-parent</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>cvdbrowser</name>
 	<description>Simple client consuming the cvdb rest api</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,42 +49,42 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
+	<!--	<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>3.3.7-1</version>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-jdk8</artifactId>
 			<version>${org.mapstruct.version}</version>
-		</dependency>
+		</dependency>-->
 		
-		<dependency>
+		<!--<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.2</version>
-		</dependency>
+		</dependency>-->
 
-		<!-- https://mvnrepository.com/artifact/com.googlecode.junit-toolbox/junit-toolbox -->
+		<!--&lt;!&ndash; https://mvnrepository.com/artifact/com.googlecode.junit-toolbox/junit-toolbox &ndash;&gt;
 		<dependency>
 			<groupId>com.googlecode.junit-toolbox</groupId>
 			<artifactId>junit-toolbox</artifactId>
 			<version>2.4</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 
 	</dependencies>
 
@@ -137,7 +137,7 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
+				<!--<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 					<annotationProcessorPaths>
@@ -159,7 +159,7 @@
 							-Amapstruct.defaultComponentModel=spring
 						</compilerArg>
 					</compilerArgs>
-				</configuration>
+				</configuration>-->
 			</plugin>
 		</plugins>
 

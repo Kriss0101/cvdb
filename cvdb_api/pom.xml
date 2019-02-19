@@ -3,32 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>kriss0101.cvdb</groupId>
-	<artifactId>cvdb</artifactId>
+	<artifactId>cvdb-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>cvdb</name>
 	<description>CV Database REST API</description>
 
+
+
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.M7</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>com.kristofer.cvdb</groupId>
+		<artifactId>simple-parent</artifactId>
+		<version>1.0</version>
 	</parent>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<org.mapstruct.version>1.2.0.CR2</org.mapstruct.version>
-
-
-		<!-- automatically run annotation processors within the incremental compilation -->
-		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
-
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -54,10 +42,7 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
@@ -69,23 +54,15 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-jdk8</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
-		<dependency>
+
+		<!--<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.2</version>
-		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/com.googlecode.junit-toolbox/junit-toolbox -->
 		<dependency>
@@ -99,11 +76,11 @@
 
 	<build>
 		<plugins>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
+			</plugin>-->
+			<!--<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -111,8 +88,8 @@
 					  	<exclude>**/cvdb/browser/**</exclude>					
 					</excludes>
 				</configuration>
-			</plugin>
-			<plugin>
+			</plugin>-->
+			<!--<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-failsafe-plugin</artifactId>
 			<version>2.20</version>
@@ -154,7 +131,7 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
+				&lt;!&ndash;<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 					<annotationProcessorPaths>
@@ -176,48 +153,12 @@
 							-Amapstruct.defaultComponentModel=spring
 						</compilerArg>
 					</compilerArgs>
-				</configuration>
-			</plugin>
+				</configuration>&ndash;&gt;
+			</plugin>-->
 		</plugins>
 
 	</build>
 
-	<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>
