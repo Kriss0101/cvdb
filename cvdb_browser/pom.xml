@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>com.kristofer.cvdb</groupId>
+		<groupId>cvdb</groupId>
 		<artifactId>simple-parent</artifactId>
 		<version>1.0</version>
 	</parent>
@@ -27,7 +27,7 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
+       <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -58,7 +58,13 @@
 			<artifactId>bootstrap</artifactId>
 			<version>3.3.7-1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dependencies</artifactId>
+			<version>Finchley.RELEASE</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
 		<!--<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-jdk8</artifactId>

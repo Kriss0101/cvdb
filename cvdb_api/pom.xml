@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<groupId>cvdb</groupId>
 	<artifactId>cvdb-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -10,15 +11,21 @@
 	<name>cvdb</name>
 	<description>CV Database REST API</description>
 
-
-
 	<parent>
-		<groupId>com.kristofer.cvdb</groupId>
+		<groupId>cvdb</groupId>
 		<artifactId>simple-parent</artifactId>
 		<version>1.0</version>
 	</parent>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -71,7 +78,13 @@
 			<version>2.4</version>
 			<scope>test</scope>
 		</dependency>
-
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Finchley.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 	</dependencies>
 
 	<build>
